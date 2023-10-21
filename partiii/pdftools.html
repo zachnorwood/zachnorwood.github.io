@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'
+'http://www.w3.org/TR/html4/loose.dtd'>
+<html>
+<head>
+
+<script src='http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' type='text/javascript'> </script>
+
+<title>Some PDF utilities</title>
+<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+<meta name='author' content='Zach Norwood'>
+</head>
+
+<body>
+<div style='max-width:50em; margin:0 auto; font-family:palatino'>
+
+<h1 align=center>Some PDF utilities</h1>
+
+<h3>PDFcrop</h3>
+
+<p><a href="http://pdfcrop.sourceforge.net/">Here</a> you will find a (GNU/Linux/OS X) tool 'PDFcrop'. 
+It uses <a href="http://www.ghostscript.com/">ghostscript</a> to crop the margins from PDFs. </p>
+
+<h3>Concatenate PDFs and add bookmarks</h3>
+
+<p><a href="http://www.springerlink.com/content/kp180w/?p=606595980f9a4bec86922eef7504c2f4&pi=0">SpringerLink</a> 
+is a great tool! If your library offers it. But the books available on there are split into chapters. This annoys me,
+so I've <a href="http://en.wikipedia.org/wiki/MacGyver">MacGyver</a>'d a java app that will concatenate those individual 
+chapters into a single PDF. It will also place a bookmark in the final PDF to mark the beginning of each original file.
+So if you start with ten chapter files, you name them "ch1.pdf", "ch2.pdf", etc., and run this script on them, the result will
+be a single PDF with bookmarks "ch1", "ch2", etc at the appropriate places.
+I'm currently working to pack this into a portable app; if you're really interested in dealing with it in its raw form, 
+send me an email zn217 [at] cam [dot] ac [dot] uk.</p>
+
+<p>I should mention that my app is a variation on an app called joinPDF that I found somewhere in iText examples.
+Now I have no idea where to find it, though. </p>
+
+<p>Ultimately I would like to write a shell script that only appeals to ghostscript to accomplish what the current app does. 
+This shouldn't be too difficult, but I haven't had time to do it.</p>
+
+<!--
+Anyway, you can download it here: <a href="files/concat.zip">concat.zip</a>. </p>
+
+<p>To use the files there, all you <em>should</em> have to do is unzip the file, cd to the folder with Concat and all your PDFs,
+and execute the code
+	<blockquote><code>
+	java Concat file1.pdf file2.pdf ... fileN.pdf output.pdf
+	</code></blockquote>
+You should have Java, etc., of course. Hopefully that's all you need.
+If you're having trouble with this, drop me an email: zn217 [at] cam [dot] ac [dot] uk.
+You need to install the iText PDF Java Library, available here: http://itextpdf.com/download.php.
+</p> -->
+
+<h3>Modify PDF metadata</h3>
+
+<p>After you've smashed your chapter files into a single book PDF, you might want to change that PDF's metadata.
+To do that, I recommend <a href="http://www.pdflabs.com/docs/install-pdftk/">pdftk</a>. 
+For your convenience (and mine) I've paraphrased from 
+<a href="https://sangonz.wordpress.com/2010/04/11/how-to-edit-pdf-metadata-maclinuxwindows/">another site</a>
+ instructions for using pdftk to change PDF metadata:</p>
+
+<p>First get your PDF's metadata as a text file using the command<br>
+	<blockquote><code>$ pdftk file.pdf dump_data > metadata.txt</code>.</blockquote>
+Then modify the newly created file 'metadata.txt': simply change the fields you want changed, add any new fields you
+want to add, and delete any field you don't want by changing its 'InfoValue' to blank.
+To change a field, simply change its 'InfoValue'. For instance, I might want a PDF to have author 'Isaac Newton', so 
+somewhere the metadata file should include the following text:<br>
+	<blockquote>
+	InfoKey: Author<br>
+	InfoValue: Isaac Newton
+	</blockquote>
+Complication: You have to use HTML format to use special characters in metadata fields. Google this. It isn't so bad.<br>
+Once you've changed the file metadata.txt to your liking, take your old pdf old.pdf and your modified file metadata.txt
+and combine them to make a new pdf:<br>
+	<blockquote><code>$ pdftk old.pdf update_info metadata.txt output new.pdf</code>.</blockquote>
+That's it.
+</p>
+
+  </div>
+  </body>  
+</html> 
