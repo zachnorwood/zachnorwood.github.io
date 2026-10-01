@@ -46,10 +46,9 @@
 <header><p class="eyebrow">Math Department accessibility resources</p>
   <h1>Producing accessible math documents</h1>
   <p class="intro">Practical guidance for colleagues, with an emphasis on LaTeX’s tagging module and a place for HTML and other approaches.</p>
-  <p>This page collects my department FAQ, troubleshooting notes, examples, and resource links. Dated reports describe my experience at the time; guidance will continue to evolve as tools and testing improve.</p>
-  <p>It is maintained with the help of an AI assistant.</p>
+  <p>This page collects my department FAQ, troubleshooting notes, examples, and resource links. Dated reports describe my experience at the time; guidance will continue to evolve as tools and testing improve. It is maintained with the help of an AI assistant.</p>
 </header>
-<nav aria-label="On this page"><h2>On this page</h2><ul><li><a href="#getting-started">Getting Started</a></li><li><a href="#start">Context and choosing a format</a></li><li><a href="#latex">LaTeX</a> — <a href="#faq-44">Canvas checker questions</a>, <a href="#faq-62">slides</a>, <a href="#examples">code example</a>, <a href="#math-alt-use">MathML and alt text</a></li><li><a href="#ally">Canvas and Ally scores</a> — <a href="#pdfcheck">PDF score predictor</a></li><li><a href="#alternatives">HTML and alternatives to LaTeX</a> — <a href="#pretext">PreTeXt</a></li><li><a href="#handwriting">Handwritten content</a></li><li><a href="#resources">Resources and further reading</a></li><li><a href="#meetings">Informal meetings</a></li></ul></nav>
+<nav aria-label="On this page"><h2>On this page</h2><ul><li><a href="#getting-started">Getting Started</a></li><li><a href="#start">Context and choosing a format</a></li><li><a href="#latex">LaTeX</a> — <a href="#faq-44">Canvas checker questions</a>, <a href="#faq-62">slides</a>, <a href="#examples">code example</a>, <a href="#math-alt-use">MathML and alt text</a></li><li><a href="#ally">Canvas and Ally scores</a> — <a href="#pdfcheck">PDF score predictor</a></li><li><a href="#alternatives">HTML and alternatives to LaTeX</a> — <a href="#pretext">PreTeXt</a></li><li><a href="#handwriting">Handwritten content</a></li><li><a href="#resources">Resources and further reading</a></li></ul></nav>
 <section id="getting-started" aria-labelledby="getting-started-title">
 <h2 id="getting-started-title">Getting Started</h2>
 <h3 id="faq-32" data-faq-paragraph="32">I just want to create accessible PDFs with LaTeX. How do I do that?</h3>
@@ -58,11 +57,12 @@
   <li><strong>Add this before <code>\documentclass</code>:</strong>
 <pre tabindex="0" aria-label="Getting started document metadata"><code>\DocumentMetadata{
   lang = en-US,
+  pdfversion = 2.0,
   tagging = on,
   pdfstandard = ua-2,
   tagging-setup = {math/setup=mathml-SE, math/alt/use}
 }</code></pre>
-  This uses the current tagging interface. <a href="#pdf-standards">PDF version and standards explained below</a>. <code>math/alt/use</code> is an Ally compromise; see <a href="#math-alt-use">the accessibility tradeoff</a>.</li>
+  This uses the current tagging interface. <a href="#pdf-standards">PDF version and standards explained below</a>. <code>math/alt/use</code> is a compromise for Ally; see <a href="#math-alt-use">the accessibility tradeoff</a>.</li>
   <li><strong>Remove or replace unsupported packages or document classes if needed.</strong> <a href="#faq-39">Compatibility details and troubleshooting</a>.</li>
   <li><strong>Compile with LuaLaTeX.</strong> You may need to change font-loading commands written for pdfTeX. <a href="#faq-38">Fonts and compiler details</a>.</li>
 </ol>
@@ -74,14 +74,11 @@
 <details><summary>Original timing in the department FAQ (superseded)</summary><p id="faq-17" data-faq-paragraph="17">Starting in April 2026, all university digital content must meet accessibility standards, specifically WCAG 2.1 AA. Right now, the big priority is to make digital teaching materials compliant. You can read more about this at <a href="https://ada.unl.edu/">ada.unl.edu</a>. See especially <a href="https://ada.unl.edu/title-ii-faqs/">the FAQ page</a>:</p>
 </details><p id="faq-18" data-faq-paragraph="18">Math faces unique challenges here, because of mathematical formulas. Luckily, the good folks at <a href="https://latex-project.org/about/team/">The LaTeX Project</a> have done a lot of work to make accessible PDFs possible. And many good options exist for embedding accessible math formulas in HTML pages.</p>
 <h3 id="faq-19" data-faq-paragraph="19">In math, why do we use PDFs?</h3>
-<ul><li id="faq-20" data-faq-paragraph="20">To render mathematical formulas nicely.</li>
-<li><ul><li id="faq-21" data-faq-paragraph="21">This can also be done by MathJax etc.</li>
-</ul></li><li id="faq-22" data-faq-paragraph="22">To create final-form <em>digital paper</em> documents suitable for long-term archiving.</li>
-<li><ul><li id="faq-23" data-faq-paragraph="23">For documents meant for students, the difficulty of creating an accessible version probably outweighs the small benefit of archival quality.</li>
-<li id="faq-24" data-faq-paragraph="24">PDF-as-digital-paper was designed for <em>sighted</em> people.</li>
-<li><ul><li id="faq-25" data-faq-paragraph="25">E.g. artifacts (e.g. page numbers), glue space used by TeX, content order vs reading order.</li>
-<li id="faq-26" data-faq-paragraph="26">A PDF is just a set of printing instructions that a PDF reader can render as digital paper. It is meant for <em>sighted</em> people. </li>
-</ul></li></ul></li></ul></section>
+<ul><li id="faq-20" data-faq-paragraph="20">To render mathematical formulas nicely.
+<ul><li id="faq-21" data-faq-paragraph="21">This can also be done by MathJax etc.</li></ul></li>
+<li id="faq-22" data-faq-paragraph="22">To create final-form <em>digital paper</em> documents suitable for long-term archiving.
+<ul><li id="faq-23" data-faq-paragraph="23">For documents meant for students, the difficulty of creating an accessible version probably outweighs the small benefit of archival quality.</li><li id="faq-24" data-faq-paragraph="24">PDF-as-digital-paper was designed for <em>sighted</em> people.
+<ul><li id="faq-25" data-faq-paragraph="25">E.g. artifacts (e.g. page numbers), glue space used by TeX, content order vs reading order.</li><li id="faq-26" data-faq-paragraph="26">A PDF is just a set of printing instructions that a PDF reader can render as digital paper. It is meant for <em>sighted</em> people. </li></ul></li></ul></li></ul></section>
 <section id="latex" aria-labelledby="latex-title"><h2 id="latex-title">LaTeX</h2>
 <h3 id="latex-setup-details">Setup details and choosing a format</h3>
 <p id="faq-33" data-faq-paragraph="33">First, be warned that this might not be the easiest option, in every case. If you have a document that contains few or no mathematical formulas but many lists, tables, etc. (I’m thinking particularly of a syllabus here!), then you will probably save yourself a headache by composing it directly in Canvas or (heaven forfend!) as a Word document.</p>
@@ -91,12 +88,19 @@
 <p id="faq-37" data-faq-paragraph="37">Major edits might be necessary if your document uses document classes or packages that are not (yet) supported by the tagging project:  <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a></p>
 <p id="faq-38" data-faq-paragraph="38">For new documents, compile with LuaLaTeX, if possible. LuaLaTeX ships with all standard TeX installations. Make sure you are not loading font packages specific to pdfTeX when you compile with lua. See the code in <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">the Overleaf template</a> for an example of how to change the font.</p>
 <p>Keep your TeX distribution current: use TeX Live 2026 or an equivalent updated distribution. Tagging support changes with LaTeX releases; for example, <a href="https://www.ctan.org/pkg/ltx-talk">ltx-talk requires LaTeX 2025-11-01 or later</a>.</p>
+<p>Within an installed TeX Live release, update the packages and the manager itself with:</p>
+<pre tabindex="0" aria-label="Update TeX Live packages"><code>tlmgr update --self --all</code></pre>
+<p>For a system-wide installation that requires administrator permissions, use <code>sudo tlmgr update --self --all</code>. <code>tlmgr update --all</code> updates all installed packages; adding <code>--self</code> also updates the manager. For a targeted update, use <code>tlmgr update package-name</code>. These package updates are distinct from upgrading an older annual TeX Live release to TeX Live 2026. See the <a href="https://tug.org/texlive/doc/tlmgr.html">TeX Live Manager documentation</a>.</p>
 <h3 id="faq-39" data-faq-paragraph="39">Something breaks when I try to load my favorite LaTeX class / package.</h3>
 <p id="faq-40" data-faq-paragraph="40">Take a look at the classes and packages supported by the tagging project: <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a></p>
 <p id="faq-41" data-faq-paragraph="41">As of 2025-10-20, even very popular packages like amsmath and amsthm are only partially supported!</p>
 <h3 id="faq-42" data-faq-paragraph="42">In trying to generate tagged PDFs, I&#x27;m getting an error in compilation that looks like this: &quot;The number of automatic begin and end text-unit para hooks differ!&quot;</h3>
 <p id="faq-43" data-faq-paragraph="43">In most other cases I&#x27;ve looked at, an error like this seems to be caused by loading a package that is not fully compatible with the tagging module. Those are listed here: <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a>.</p>
-<p>The full error may read <code>Package tagpdf error: The number of automatic begin (number) and end (different number) text-unit para hooks differ!</code> In addition to unsupported classes or packages, bugs in the tagging module can cause problems. After updating your distribution and checking package compatibility, <a href="https://github.com/latex3/tagging-project/issues">search the tagging project’s GitHub issues</a>. You can also try compiling with <code>lualatex-dev</code> to see whether a fix is available in the prerelease version. This is a diagnostic step; check the resulting document before relying on it.</p>
+<p>The full error may read:</p>
+<pre tabindex="0" aria-label="Tagging module compilation error"><code>Package tagpdf error:
+The number of automatic begin (number) and end (different number)
+text-unit para hooks differ!</code></pre>
+<p>In addition to unsupported classes or packages, bugs in the tagging module can cause problems. After updating your distribution and checking package compatibility, <a href="https://github.com/latex3/tagging-project/issues">search the tagging project’s GitHub issues</a>. You can also try compiling with <code>lualatex-dev</code> to see whether a fix is available in the prerelease version. This is a diagnostic step; check the resulting document before relying on it.</p>
 <h3 id="faq-44" data-faq-paragraph="44">Specific questions about the Canvas checker</h3>
 <h4 id="faq-45" data-faq-paragraph="45">The Canvas checker says my PDF doesn&#x27;t have a title.</h4>
 <p id="faq-46" data-faq-paragraph="46">Make sure your TeX source declares a title either by using the \title command or hyperref&#x27;s pdftitle tag.</p>
@@ -109,7 +113,7 @@
 </pre><p id="faq-53" data-faq-paragraph="53">More extensive documentation is available here: <a href="https://texdoc.org/serve/latex-lab-table/0">https://texdoc.org/serve/latex-lab-table/0</a></p>
 <p id="faq-54" data-faq-paragraph="54">Or reach out to me.</p>
 <h4 id="latex-figures">Figures and alternative text</h4>
-<p>Give figures that convey information an appropriate text description. With tagging enabled, the LaTeX Project’s <a href="https://latex3.github.io/tagging-project/documentation/tutorial/#3-tagging-of-graphics">graphics-tagging examples</a> show how to attach alternative text using <code>\includegraphics[alt={Description of the figure}]{filename}</code> and mark decorative graphics with <code>artifact</code>. For complex mathematical diagrams, also provide the detail students need in the surrounding text. See <a href="https://ada.unl.edu/faqs/">UNL’s guidance on images, figures, and graphs</a>.</p>
+<p>Give figures that convey information an appropriate text description. With tagging enabled, the LaTeX Project’s <a href="https://latex3.github.io/tagging-project/documentation/tutorial/#3-tagging-of-graphics">graphics-tagging examples</a> show how to attach alternative text using <code>\includegraphics[alt={Description of the figure}]{filename}</code> and mark decorative graphics with <code>artifact</code>. For complex mathematical diagrams, also provide the detail students need in the surrounding text.</p>
 <h4 id="faq-55" data-faq-paragraph="55">The Canvas checker complains about the section headings in my document.</h4>
 <p id="faq-56" data-faq-paragraph="56">First, make sure that you are using semantic commands like \section for document structure. It is not enough, for example, to simply make text larger with \Large.</p>
 <p id="faq-57" data-faq-paragraph="57">If you have a long document, the problem might (depending on the document class and other issues) be that you are using low-level section headings (subsection) without their parents. Do you have a \section without a parent \chapter, for example?</p>
@@ -141,16 +145,17 @@
 <p>In our Canvas Ally testing, the checker does not recognize the embedded MathML adequately and can give a low score when formula alt text is absent. That is why my templates include it. A better Ally score does not establish that the formula is easier to use with a screen reader.</p>
 <p><strong>If a student uses a screen reader, omitting <code>math/alt/use</code> may give them better results. Discuss and test the document with the student using their PDF reader and assistive tools, and contact me for help finding a good solution.</strong> Keep MathML tagging enabled when removing the extra alt-text option:</p>
 <pre tabindex="0" aria-label="MathML tagging without additional formula alt text"><code>tagging-setup={math/setup=mathml-SE}</code></pre>
-<p>In the supplied full example, the active setting is instead <code>\tagpdfsetup{math/setup=mathml-SE, math/alt/use}</code>. To try the MathML-only approach with that file, remove <code>math/alt/use</code> from that command too. Removing it only from the commented-out metadata line will have no effect. The full source below remains as originally supplied and uses an older metadata setup.</p>
+
 <p>I have explained the embedded MathML issue to ITS colleagues who are in touch with Ally, and they have been sympathetic. I do not have confirmation of Ally’s plans or a timeline for full PDF 2.0 support.</p>
 <h4 id="pdf-standards">PDF version and standards</h4>
 <p>The current setup uses <code>tagging=on</code>; it does not need the older <code>testphase=latest</code> setting. <a href="https://docs.overleaf.com/writing-and-editing/creating-accessible-pdfs">Overleaf recommends <code>pdfstandard=ua-2</code></a>, the PDF/UA-2 accessibility target, which supports MathML in PDF 2.0. Selecting a target does not by itself certify the document’s accessibility.</p>
 <p>The separate <code>pdfstandard=a-4</code> setting targets PDF/A-4, an <a href="https://pdfa.org/pdf-standards/">archival standard</a>. It is omitted here because long-term archival conformance is a separate requirement from accessible course materials.</p>
-<p>No explicit <code>pdfversion=2.0</code> line is needed: <a href="https://latex3.github.io/tagging-project/documentation/usage-instructions">current LaTeX metadata guidance</a> states that PDF 2.0 is the default. Omitting that line does not downgrade the PDF. PDF/UA-2 and the MathML structure-element approach used here belong to the PDF 2.0 workflow; switching to PDF 1.7 would require a different approach, not just changing a version number.</p>
+<p>The examples explicitly set <code>pdfversion=2.0</code> for clarity; <a href="https://latex3.github.io/tagging-project/documentation/usage-instructions">current LaTeX metadata guidance</a> states that PDF 2.0 is also the default. PDF/UA-2 and the MathML structure-element approach used here belong to the PDF 2.0 workflow; switching to PDF 1.7 would require a different approach, not just changing a version number.</p>
 <p>Ally’s incomplete recognition of embedded MathML does not mean the document is inaccessible. Keep the structured mathematics and see the <a href="#math-alt-use">formula alt-text compromise</a> above. Test with the PDF reader and assistive tools the student uses rather than choosing a format solely for Ally’s score.</p>
 <p>The supplied <code>tagged-pdf-simple.tex</code> uses LuaLaTeX, the tagging module, MathML settings, theorem environments, and two mathematics problems. <strong>Read the <a href="#math-alt-use">MathML and alt-text tradeoff above</a> before reusing its settings.</strong> The updated metadata block below replaces the older setup in that example and belongs before <code>\documentclass</code>.</p>
 <pre tabindex="0" aria-label="Updated metadata block for the LaTeX example"><code>\DocumentMetadata{
   lang = en-US,
+  pdfversion = 2.0,
   tagging = on,
   pdfstandard = ua-2,
   tagging-setup = {math/setup=mathml-SE, math/alt/use}
@@ -291,15 +296,16 @@ Show that $B_n = 0$ for all odd $n \ge 3$.
 </section>
 <section id="ally" aria-labelledby="ally-title">
 <h2 id="ally-title">Canvas and Ally scores</h2>
-<p>Ally is the accessibility auto-checker used within Canvas. Its reports can help identify problems, but a score is not a complete assessment of whether students can use your materials. My concern about aggregate scores is a version of Goodhart’s Law: when we optimize a measure, it can stop being a useful measure of the thing we care about.</p>
+<p>Ally is the accessibility auto-checker used in Canvas. Its reports can help identify problems (and are probably being looked at carefully by administrators!), but a perfect Ally score is neither sufficient nor necessary for accessibility. (Goodhart’s Law comes to mind: “When a measure becomes a target, it ceases to be a good measure.”)</p>
 <h3 id="ally-course-scores">What does a course score average?</h3>
-<p><a href="https://help.anthology.com/ally-lms/en/administrators/administrator-faqs-for-ally.html">Anthology’s administrator FAQ</a> describes the course accessibility score as the average of the scores of all items in the course. An item average does not give extra weight to a file because it contains more pages or is the course’s main reference.</p>
+<p><a href="https://help.anthology.com/ally-lms/en/administrators/administrator-faqs-for-ally.html">Anthology’s administrator FAQ</a> describes the course accessibility score as the simple average of the scores of all items in the course.</p>
 <p>For example, suppose the scored items are:</p>
 <ul>
   <li>One 200-page lecture-notes PDF scoring 50%.</li>
   <li>Twenty short quiz files, each scoring 100%.</li>
 </ul>
-<p>The item average is <code>(50 + 20 × 100) ÷ 21 ≈ 97.6%</code>. That high overall score can conceal a problem with the course’s major reference. Conversely, many small, low-scoring items can pull the average down even if they are rarely used or peripheral to learning. Their barriers still matter, but the average alone does not show their instructional importance.</p>
+<p>The item average is <code>(50 + 20 × 100) ÷ 21 ≈ 97.6%</code>. That high overall score can conceal a problem with the course’s major reference.</p>
+<p>Conversely, many small, low-scoring items can pull the average down even if they are rarely used or peripheral to learning. Their barriers still matter, but the average alone does not show their instructional importance.</p>
 <h3 id="ally-department-scores">How should we interpret a department score?</h3>
 <p><strong>The formula used for our department’s report still needs confirmation.</strong> My original suggestion that it was a simple average of every item across every course was a ChatGPT-assisted hypothesis, not a verified description of UNL’s reporting.</p>
 <p><a href="https://help.anthology.com/ally-lms/en/administrators/ally-institution-report/institution-report-overview.html">Anthology’s institutional-report documentation</a> describes item averages within reporting periods and a weighted combination of file and Canvas-editor content scores. Monthly and academic-year reports concern items added during those periods; term reports concern items in associated courses. This does not establish how our department’s particular summary is calculated.</p>
@@ -309,7 +315,7 @@ Show that $B_n = 0$ for all odd $n \ge 3$.
 <p><strong>Yes: Ally scans all content in Canvas Files.</strong> Anthology explicitly confirms this in its <a href="https://help.anthology.com/ally-lms/en/administrators/administrator-faqs-for-ally.html">Canvas administrator FAQ</a>. Unpublishing a file or preventing students from viewing it does not exclude it from scanning.</p>
 <p>For example, inaccessible instructor versions of slides stored alongside accessible student versions can lower the course score, even when students cannot access the instructor versions. Store instructor-only working materials outside Canvas Files when they do not need to be there. Distinguish those materials from student-facing content when interpreting a report.</p>
 <h3 id="pdfcheck">Try predicting a PDF’s Ally score before uploading</h3>
-<p><a href="https://github.com/znorwood2/pdfcheck">pdfcheck on GitHub</a> is an unofficial, very early alpha command-line tool I developed with ChatGPT to estimate a PDF’s Ally issues and score without uploading it to Canvas. It is not endorsed by Anthology.</p>
+<p><a href="https://github.com/znorwood2/pdfcheck">pdfcheck on GitHub</a> is an unofficial, very early alpha command-line tool I vibecoded to estimate a PDF’s Ally issues and score without uploading it to Canvas. It is not endorsed by Anthology.</p>
 <p>Its <a href="https://github.com/znorwood2/pdfcheck#readme">README</a> explains PDF checks for tagging, title, language, heading hierarchy, figure alternative text, table headers, encryption, and parsing, plus a provisional contrast heuristic. It describes two modes:</p>
 <pre tabindex="0" aria-label="PDF checker command examples"><code>pdfcheck --canvas handout.pdf
 pdfcheck --full handout.pdf</code></pre>
@@ -317,11 +323,12 @@ pdfcheck --full handout.pdf</code></pre>
   <li><code>--canvas</code> predicts Ally issue codes and estimates a score.</li>
   <li><code>--full</code> adds broader checks and a manual-review checklist.</li>
 </ul>
-<p>The initial calibration used 16 controlled LuaLaTeX PDFs checked in Canvas on September 16, 2026. Unseen issue combinations receive lower-confidence estimates. Rendering-dependent checks are currently skipped, and the README lists additional limitations. Treat the results as preliminary troubleshooting help, not a guaranteed Ally score or accessibility certification.</p>
+<p>Rendering-dependent checks are currently skipped, and the README lists additional limitations. Treat the results as preliminary troubleshooting help, not a guaranteed Ally score or accessibility certification.</p>
 <p><strong>Prioritize usable mathematics over a perfect score.</strong> <a href="https://ada.unl.edu/faqs/">UNL’s FAQ</a> notes a known Ally issue recognizing PDF 2.0 documents containing MathML and advises choosing the more accessible document. It also explains that a 100% Ally score does not guarantee full accessibility.</p>
 <p>For the specific formula alt-text setting used in my templates, see <a href="#math-alt-use">MathML and <code>math/alt/use</code></a>. For the three-page heading check and a problem-set example, see <a href="#ally-headings">headings in longer PDFs</a>.</p>
 </section>
 <section id="alternatives" aria-labelledby="alternatives-title"><h2 id="alternatives-title">HTML and alternatives to LaTeX</h2>
+<p><strong>Under construction.</strong></p>
 <h3 id="faq-27" data-faq-paragraph="27">I want to convert small documents. What do I do?</h3>
 <p id="faq-28" data-faq-paragraph="28">You have at least three options:</p>
 <ol><li id="faq-29" data-faq-paragraph="29">You can use LaTeX syntax to produce math directly in a Canvas page: try \(…\) for in-line math or $$...$$ for displayed math.</li>
@@ -331,12 +338,10 @@ pdfcheck --full handout.pdf</code></pre>
 <h3 id="pretext">PreTeXt</h3><p>I have extensive experience with PreTeXt and plan to add guidance and examples here. This section will cover another approach to producing mathematics for the web.</p>
 </section>
 <section id="handwriting" aria-labelledby="handwriting-title"><h2 id="handwriting-title">Handwritten content</h2>
-<h3 id="faq-67" data-faq-paragraph="67">Handwritten content</h3>
+<p><strong>Under construction.</strong></p>
 <p id="faq-68" data-faq-paragraph="68">Handwritten content, either scanned or composed on a tablet, will not meet accessibility standards without some effort. (Someone, either human or machine, needs to convert the handwriting into text that a screen-reader can understand! And, as always, the math needs to be in an accessible format like MathML.)</p>
-<p id="faq-69" data-faq-paragraph="69">Preliminary tests with Copilot produce mixed results. Here is <a href="https://m365.cloud.microsoft/chat/entity1-d870f6cd-4aa5-4d42-9626-ab690c041429/eyJpZCI6IlZYTmxjbFl4ZkdoMGRIQnpPaTh2YzNWaWMzUnlZWFJsTFdsdWRDNXZabVpwWTJVdVkyOXRMM3hQU1VRNll6Sm1NV014TldNdE5qWTFPQzAwWldFMExUbG1ZMkl0TVRoa1lqZGpOell4T1RsbWZHTmlPV1kzWkdReExUazVZemN0TkRBd09TMDVNRFZqTFRoa04yRmpaV1ZsWVRrNU1Yd3lNREkxTFRBM0xUTXhWREUxT2pFM09qRXhMalUyT1RBMU9UUmEiLCJzY2VuYXJpbyI6InNoYXJlTGlua1ZpYVByb21wdExpYnJhcnkiLCJwcm9wZXJ0aWVzIjp7InByb21wdFNvdXJjZSI6InVzZXIiLCJjbGlja1RpbWVzdGFtcCI6IjIwMjUtMDctMzFUMTU6MTc6MjQuMzQ4WiJ9LCJjaGF0VHlwZSI6IndlYiIsInZlcnNpb24iOjEuMX0">one attempt</a>, in which Copilot apparently ignored some chunks of the input and rewrote others.</p>
-<p id="faq-70" data-faq-paragraph="70">NB. Different tablet writing programs produce very different PDFs. </p>
-<p id="faq-71" data-faq-paragraph="71">(February 2026 update) The chatbots are producing better results, though they still try to <em>edit</em> instead of just <em>transcribe</em>. People at the CTT and I are working to develop a replicable workflow. Please let me know if you’re interested in participating or in our results.</p>
-<p>The February 2026 update records work in progress at that time. The linked Copilot example may require a Microsoft sign-in.</p></section>
+<p>AI tools have recently become much more useful for converting handwritten materials, but beware their tendency to <em>edit</em> and <em>paraphrase</em> instead of only <em>transcribing</em>. Check the transcription against the original, including every formula.</p>
+</section>
 <section id="resources" aria-labelledby="resources-title"><h2 id="resources-title">Resources and further reading</h2>
 <p>The short link <a href="https://go.unl.edu/math-repository">go.unl.edu/math-repository</a> leads to the Service Course Repository. Open its <strong>Accessibility</strong> folder for the resources I created, mostly last year. University sign-in or repository access may be required.</p>
 <ul><li id="faq-73" data-faq-paragraph="73"><a href="https://ada.unl.edu/title-ii-faqs/">UNL’s FAQ</a>. Highly recommend that you look through this.</li>
@@ -349,8 +354,7 @@ pdfcheck --full handout.pdf</code></pre>
 <li id="faq-80" data-faq-paragraph="80">LaTeXML, for converting LaTeX source to HTML output. (This is what the arXiv has been doing. <a href="https://arxiv.org/html/2506.24088v1">Example</a>.)</li>
 <li id="faq-81" data-faq-paragraph="81"><a href="https://www.ctan.org/pkg/ltx-talk">ltx-talk</a>, an in-development alternative to beamer</li>
 </ul></section>
-<section id="meetings" aria-labelledby="meetings-title"><h2 id="meetings-title">Informal meetings about math accessibility</h2><p>Some colleagues have expressed interest in occasional informal meetings about accessibility issues specific to mathematics. If you would like to participate, <a href="mailto:znorwood2@unl.edu">email me</a> so I can include you in scheduling.</p></section>
-<footer><p>Maintained by Zach Norwood (he/him), Assistant Professor of Practice in Mathematics at the University of Nebraska–Lincoln and department accessibility ambassador. Please <a href="mailto:znorwood2@unl.edu">reach out with questions</a>, examples, or interest in testing workflows.</p><p>Updated <time datetime="2026-10-01">October 1, 2026</time>. Incorporates <cite>FAQ and resources</cite>, <code>tagged-pdf-simple.tex</code>, and email guidance on tagging and Ally reporting. Further contributions and PreTeXt guidance will be added.</p></footer></main><script>
+<footer><p>Maintained by Zach Norwood, UNL Math Department Accessibility Ambassador. Please <a href="mailto:znorwood2@unl.edu">reach out with questions</a>, examples, or interest in testing workflows.</p><p>Updated <time datetime="2026-10-01">October 1, 2026</time>. Incorporates <cite>FAQ and resources</cite>, <code>tagged-pdf-simple.tex</code>, and email guidance on tagging and Ally reporting. Further contributions and PreTeXt guidance will be added.</p></footer></main><script>
     const template = document.getElementById('template-code');
     const status = document.getElementById('template-status');
     document.getElementById('template-actions').hidden = false;
