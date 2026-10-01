@@ -56,17 +56,13 @@
 <ol>
   <li><strong>Update your TeX distribution</strong> to TeX Live 2026 or equivalent, or select TeX Live 2026 in Overleaf. <a href="#faq-35">Installation details</a>.</li>
   <li><strong>Add this before <code>\documentclass</code>:</strong>
-<pre tabindex="0" aria-label="Getting started document metadata"><code>\DocumentMetadata
-  {
-    lang = en-US,
-%    pdfversion = 2.0,
-    tagging = on,
-    pdfstandard = ua-2,
-    pdfstandard = a-4,
-    testphase = latest,
-    tagging-setup={math/setup=mathml-SE, math/alt/use}
-  }</code></pre>
-  These are the template’s settings, with the math setup enabled inside <code>\DocumentMetadata</code>. <code>math/alt/use</code> is an Ally compromise; see <a href="#math-alt-use">the accessibility tradeoff</a>.</li>
+<pre tabindex="0" aria-label="Getting started document metadata"><code>\DocumentMetadata{
+  lang = en-US,
+  tagging = on,
+  pdfstandard = ua-2,
+  tagging-setup = {math/setup=mathml-SE, math/alt/use}
+}</code></pre>
+  This uses the current tagging interface. <a href="#pdf-standards">PDF version and standards explained below</a>. <code>math/alt/use</code> is an Ally compromise; see <a href="#math-alt-use">the accessibility tradeoff</a>.</li>
   <li><strong>Remove or replace unsupported packages or document classes if needed.</strong> <a href="#faq-39">Compatibility details and troubleshooting</a>.</li>
   <li><strong>Compile with LuaLaTeX.</strong> You may need to change font-loading commands written for pdfTeX. <a href="#faq-38">Fonts and compiler details</a>.</li>
 </ol>
@@ -145,22 +141,22 @@
 <p>In our Canvas Ally testing, the checker does not recognize the embedded MathML adequately and can give a low score when formula alt text is absent. That is why my templates include it. A better Ally score does not establish that the formula is easier to use with a screen reader.</p>
 <p><strong>If a student uses a screen reader, omitting <code>math/alt/use</code> may give them better results. Discuss and test the document with the student using their PDF reader and assistive tools, and contact me for help finding a good solution.</strong> Keep MathML tagging enabled when removing the extra alt-text option:</p>
 <pre tabindex="0" aria-label="MathML tagging without additional formula alt text"><code>tagging-setup={math/setup=mathml-SE}</code></pre>
-<p>In the supplied full example, the active setting is instead <code>\tagpdfsetup{math/setup=mathml-SE, math/alt/use}</code>. To try the MathML-only approach with that file, remove <code>math/alt/use</code> from that command too. Removing it only from the commented-out metadata line will have no effect. The full source below remains as originally supplied.</p>
+<p>In the supplied full example, the active setting is instead <code>\tagpdfsetup{math/setup=mathml-SE, math/alt/use}</code>. To try the MathML-only approach with that file, remove <code>math/alt/use</code> from that command too. Removing it only from the commented-out metadata line will have no effect. The full source below remains as originally supplied and uses an older metadata setup.</p>
 <p>I have explained the embedded MathML issue to ITS colleagues who are in touch with Ally, and they have been sympathetic. I do not have confirmation of Ally’s plans or a timeline for full PDF 2.0 support.</p>
-<p>The supplied <code>tagged-pdf-simple.tex</code> uses LuaLaTeX, the tagging module, MathML settings, theorem environments, and two mathematics problems. <strong>Read the <a href="#math-alt-use">MathML and alt-text tradeoff above</a> before reusing its settings.</strong> The metadata block below is taken from that example and belongs before <code>\documentclass</code>.</p>
-<pre tabindex="0" aria-label="Metadata block from the supplied LaTeX example"><code>\DocumentMetadata
-  {
-    lang = en-US,&#32;
-%    pdfversion = 2.0,
-&#9;tagging = on,
-    pdfstandard = ua-2,
-    pdfstandard = a-4,
-    testphase = latest,
-%    tagging-setup={math/setup=mathml-SE, math/alt/use}%
-  }
-\tagpdfsetup{math/setup=mathml-SE, math/alt/use}</code></pre>
-<p><strong>Before reusing the example:</strong> update the course title, author, due date, and PDF metadata (including the placeholder <code>pdftitle={ Is this a title? }</code>). The supplied source is preserved below, including its comments. It has not been compiled or checked here for PDF accessibility. The <code>testphase=latest</code> setting reflects the supplied example; consult the <a href="https://docs.overleaf.com/writing-and-editing/creating-accessible-pdfs">current Overleaf tagging guide</a> for your TeX version.</p>
-<details><summary>Full source of tagged-pdf-simple.tex</summary>
+<h4 id="pdf-standards">PDF version and standards</h4>
+<p>The current setup uses <code>tagging=on</code>; it does not need the older <code>testphase=latest</code> setting. <a href="https://docs.overleaf.com/writing-and-editing/creating-accessible-pdfs">Overleaf recommends <code>pdfstandard=ua-2</code></a>, the PDF/UA-2 accessibility target, which supports MathML in PDF 2.0. Selecting a target does not by itself certify the document’s accessibility.</p>
+<p>The separate <code>pdfstandard=a-4</code> setting targets PDF/A-4, an <a href="https://pdfa.org/pdf-standards/">archival standard</a>. It is omitted here because long-term archival conformance is a separate requirement from accessible course materials.</p>
+<p>No explicit <code>pdfversion=2.0</code> line is needed: <a href="https://latex3.github.io/tagging-project/documentation/usage-instructions">current LaTeX metadata guidance</a> states that PDF 2.0 is the default. Omitting that line does not downgrade the PDF. PDF/UA-2 and the MathML structure-element approach used here belong to the PDF 2.0 workflow; switching to PDF 1.7 would require a different approach, not just changing a version number.</p>
+<p>Ally’s incomplete recognition of embedded MathML does not mean the document is inaccessible. Keep the structured mathematics and see the <a href="#math-alt-use">formula alt-text compromise</a> above. Test with the PDF reader and assistive tools the student uses rather than choosing a format solely for Ally’s score.</p>
+<p>The supplied <code>tagged-pdf-simple.tex</code> uses LuaLaTeX, the tagging module, MathML settings, theorem environments, and two mathematics problems. <strong>Read the <a href="#math-alt-use">MathML and alt-text tradeoff above</a> before reusing its settings.</strong> The updated metadata block below replaces the older setup in that example and belongs before <code>\documentclass</code>.</p>
+<pre tabindex="0" aria-label="Updated metadata block for the LaTeX example"><code>\DocumentMetadata{
+  lang = en-US,
+  tagging = on,
+  pdfstandard = ua-2,
+  tagging-setup = {math/setup=mathml-SE, math/alt/use}
+}</code></pre>
+<p><strong>Before reusing the original example:</strong> replace its older <code>\DocumentMetadata</code> block and standalone <code>\tagpdfsetup{math/setup=mathml-SE, math/alt/use}</code> command with the updated block above. Update the course title, author, due date, and PDF metadata (including the placeholder <code>pdftitle={ Is this a title? }</code>). The original source is preserved below for reference; it has not been compiled or checked here for PDF accessibility.</p>
+<details><summary>Original source of tagged-pdf-simple.tex (older metadata setup)</summary>
 <pre tabindex="0" aria-label="Full supplied LaTeX example"><code id="template-code">%%% you might need this: (leave the percentage sign) % !TEX TS-program = lualatex-dev
 %%% Compile this with LuaLaTeX, after first upgrading your TeX distribution
 \DocumentMetadata
