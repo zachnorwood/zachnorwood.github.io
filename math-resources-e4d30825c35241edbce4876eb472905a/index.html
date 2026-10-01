@@ -14,6 +14,12 @@
     h1 { font-size: clamp(2rem, 5vw, 2.8rem); }
     h2 { margin-top: 0; }
     a { color: #075b76; text-underline-offset: .18em; }
+    a { overflow-wrap: anywhere; }
+    h3 { font-size: 1.25rem; margin-top: 2rem; }
+    h4 { font-size: 1.1rem; margin-top: 1.75rem; }
+    summary { cursor: pointer; font-weight: 600; }
+    details { margin: 1rem 0; }
+    s { color: #4d5b66; }
     a:hover { text-decoration-thickness: .15em; }
     :focus-visible { outline: 3px solid #985200; outline-offset: 4px; }
     .skip-link { position: absolute; top: -5rem; left: 1rem; padding: .5rem 1rem; background: white; }
@@ -36,77 +42,234 @@
     @media print { body { background: white; } .actions, .skip-link { display: none; } section, nav { break-inside: avoid; } pre { white-space: pre-wrap; overflow-wrap: anywhere; } }
   </style>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <main id="main">
-    <header>
-      <p class="eyebrow">Department accessibility resources</p>
-      <h1>Producing accessible math documents</h1>
-      <p class="intro">Practical guidance, small code examples, and reusable templates for colleagues who write and share mathematics.</p>
-      <p class="notice"><strong>Draft resource page.</strong> This is an initial outline. Guidance and reviewed examples will be added as materials are collected.</p>
-    </header>
-    <nav aria-label="On this page">
-      <h2>On this page</h2>
-      <ul>
-        <li><a href="#start">Start here</a></li>
-        <li><a href="#workflows">Choose your workflow</a></li>
-        <li><a href="#math">Equations and diagrams</a></li>
-        <li><a href="#examples">Code examples and templates</a></li>
-        <li><a href="#check">Check your document</a></li>
-        <li><a href="#help">Further resources and help</a></li>
-      </ul>
-    </nav>
-    <section id="start" aria-labelledby="start-title">
-      <h2 id="start-title">Start here</h2>
-      <p class="placeholder">Coming soon: a short checklist, key concepts, and guidance on choosing a format for your audience.</p>
-    </section>
-    <section id="workflows" aria-labelledby="workflows-title">
-      <h2 id="workflows-title">Choose your workflow</h2>
-      <h3>LaTeX</h3>
-      <p class="placeholder">Coming soon: a reviewed workflow, requirements, and examples.</p>
-      <h3>Word and other authoring tools</h3>
-      <p class="placeholder">Coming soon: guidance organized by the tools represented in our collected materials.</p>
-    </section>
-    <section id="math" aria-labelledby="math-title">
-      <h2 id="math-title">Equations and diagrams</h2>
-      <p class="placeholder">Coming soon: worked examples of mathematical notation, descriptions of diagrams, and common issues.</p>
-    </section>
-    <section id="examples" aria-labelledby="examples-title">
-      <h2 id="examples-title">Code examples and templates</h2>
-      <p>Each example will include an explanation, its intended use, and any requirements or limitations. You can select the code directly or use the buttons below.</p>
-      <h3>LaTeX sample: document structure</h3>
-      <p><strong>Demonstration only:</strong> this small example lets you try copying and downloading code. It is not a reviewed accessible PDF template.</p>
-      <pre tabindex="0" aria-label="LaTeX document structure example"><code id="template-code">\documentclass{article}
-\title{Example handout}
-\author{}
-\date{}
-
+<body><a class="skip-link" href="#main">Skip to content</a><main id="main">
+<header><p class="eyebrow">Department accessibility resources</p><h1>Producing accessible math documents</h1><p class="intro">Practical guidance for colleagues, with an emphasis on LaTeX’s tagging module and a place for HTML and other approaches.</p><p>This page collects my department FAQ, troubleshooting notes, examples, and resource links. Dated reports describe my experience at the time; guidance will continue to evolve as tools and testing improve.</p></header>
+<nav aria-label="On this page"><h2>On this page</h2><ul><li><a href="#start">Context and choosing a format</a></li><li><a href="#latex">LaTeX</a> — <a href="#faq-44">Canvas checker questions</a>, <a href="#faq-62">slides</a>, <a href="#examples">code example</a></li><li><a href="#alternatives">HTML and alternatives to LaTeX</a> — <a href="#pretext">PreTeXt</a></li><li><a href="#handwriting">Handwritten content</a></li><li><a href="#resources">Resources and further reading</a></li></ul></nav>
+<section id="start" aria-labelledby="start-title"><h2 id="start-title">Context and choosing a format</h2>
+<h3 id="faq-16" data-faq-paragraph="16">What is going on?</h3>
+<p><strong>Deadline update, October 2026:</strong> UNL’s current FAQ gives April 26, 2027 as the revised Title II deadline and says digital content must meet accessibility standards as soon as practical. The technical standard remains WCAG 2.1 A and AA. See <a href="https://ada.unl.edu/faqs/">UNL’s current FAQ</a> for policy details.</p>
+<details><summary>Original timing in the department FAQ (superseded)</summary><p id="faq-17" data-faq-paragraph="17">Starting in April 2026, all university digital content must meet accessibility standards, specifically WCAG 2.1 AA. Right now, the big priority is to make digital teaching materials compliant. You can read more about this at <a href="https://ada.unl.edu/">ada.unl.edu</a>. See especially <a href="https://ada.unl.edu/title-ii-faqs/">the FAQ page</a>:</p>
+</details><p id="faq-18" data-faq-paragraph="18">Math faces unique challenges here, because of mathematical formulas. Luckily, the good folks at <a href="https://latex-project.org/about/team/">The LaTeX Project</a> have done a lot of work to make accessible PDFs possible. And many good options exist for embedding accessible math formulas in HTML pages.</p>
+<h3 id="faq-19" data-faq-paragraph="19">In math, why do we use PDFs?</h3>
+<ul><li id="faq-20" data-faq-paragraph="20">To render mathematical formulas nicely.</li>
+<li><ul><li id="faq-21" data-faq-paragraph="21">This can also be done by MathJax etc.</li>
+</ul></li><li id="faq-22" data-faq-paragraph="22">To create final-form <em>digital paper</em> documents suitable for long-term archiving.</li>
+<li><ul><li id="faq-23" data-faq-paragraph="23">For documents meant for students, the difficulty of creating an accessible version probably outweighs the small benefit of archival quality.</li>
+<li id="faq-24" data-faq-paragraph="24">PDF-as-digital-paper was designed for <em>sighted</em> people.</li>
+<li><ul><li id="faq-25" data-faq-paragraph="25">E.g. artifacts (e.g. page numbers), glue space used by TeX, content order vs reading order.</li>
+<li id="faq-26" data-faq-paragraph="26">A PDF is just a set of printing instructions that a PDF reader can render as digital paper. It is meant for <em>sighted</em> people. </li>
+</ul></li></ul></li></ul></section>
+<section id="latex" aria-labelledby="latex-title"><h2 id="latex-title">LaTeX</h2>
+<h3 id="faq-32" data-faq-paragraph="32">I just want to create accessible PDFs with LaTeX. How do I do that?</h3>
+<p id="faq-33" data-faq-paragraph="33">First, be warned that this might not be the easiest option, in every case. If you have a document that contains few or no mathematical formulas but many lists, tables, etc. (I’m thinking particularly of a syllabus here!), then you will probably save yourself a headache by composing it directly in Canvas or (heaven forfend!) as a Word document.</p>
+<p id="faq-34" data-faq-paragraph="34">But simple LaTeX documents can be made accessible, with few headaches! Here is an overview of what you must do:</p>
+<p><strong>Installation update:</strong> Use an up-to-date TeX Live 2026 installation, or select TeX Live 2026 in Overleaf. Earlier installation advice is struck through below, as in the original FAQ.</p><p id="faq-35" data-faq-paragraph="35"><s>Make sure you have </s><s>a totally up-to-date</s><s> </s><s>TeX</s><s> installation. (Not as easy as it should be. For example, on a Mac it is not enough to install </s><s>MacTeX</s><s> 2025. You also need to update everything, </s><s>e.g.</s><s> by executing `[</s><s>sudo</s><s>] </s><s>tlmgr</s><s> update --all` in the </s><s>Terminal.)</s><s> Or use </s><a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98"><s>Overleaf</s></a><s>, which handles the </s><s>TeX</s><s> installation for you.</s> (April 2026 update: <a href="https://www.tug.org/texlive/">TeX Live 2026 is available</a>! Upgrade to TeX Live 2026 and you should be good. 🙂)</p>
+<p id="faq-36" data-faq-paragraph="36">Minor edits to your LaTeX code will be necessary, summarized here: <a href="https://latex3.github.io/tagging-project/documentation/prototype-usage-instructions">https://latex3.github.io/tagging-project/documentation/prototype-usage-instructions</a></p>
+<p id="faq-37" data-faq-paragraph="37">Major edits might be necessary if your document uses document classes or packages that are not (yet) supported by the tagging project:  <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a></p>
+<p id="faq-38" data-faq-paragraph="38">For new documents, compile with LuaLaTeX, if possible. LuaLaTeX ships with all standard TeX installations. Make sure you are not loading font packages specific to pdfTeX when you compile with lua. See the code in <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">the Overleaf template</a> for an example of how to change the font.</p>
+<h3 id="faq-39" data-faq-paragraph="39">Something breaks when I try to load my favorite LaTeX class / package.</h3>
+<p id="faq-40" data-faq-paragraph="40">Take a look at the classes and packages supported by the tagging project: <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a></p>
+<p id="faq-41" data-faq-paragraph="41">As of 2025-10-20, even very popular packages like amsmath and amsthm are only partially supported!</p>
+<h3 id="faq-42" data-faq-paragraph="42">In trying to generate tagged PDFs, I&#x27;m getting an error in compilation that looks like this: &quot;The number of automatic begin and end text-unit para hooks differ!&quot;</h3>
+<p id="faq-43" data-faq-paragraph="43">In most other cases I&#x27;ve looked at, an error like this seems to be caused by loading a package that is not fully compatible with the tagging module. Those are listed here: <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a>.</p>
+<h3 id="faq-44" data-faq-paragraph="44">Specific questions about the Canvas checker</h3>
+<h4 id="faq-45" data-faq-paragraph="45">The Canvas checker says my PDF doesn&#x27;t have a title.</h4>
+<p id="faq-46" data-faq-paragraph="46">Make sure your TeX source declares a title either by using the \title command or hyperref&#x27;s pdftitle tag.</p>
+<p id="faq-47" data-faq-paragraph="47">If you open your PDF with Acrobat or another PDF viewer and look at the document properties, do you see a title? If not, return to question 1 or report it to me (Zach).</p>
+<p id="faq-48" data-faq-paragraph="48">Is your document class fully supported by the tagging module? (<a href="https://latex3.github.io/tagging-project/tagging-status/)">https://latex3.github.io/tagging-project/tagging-status/)</a> I have been able to recreate the title issue by using amsart (not fully supported!) instead of article.</p>
+<h4 id="faq-49" data-faq-paragraph="49">The Canvas checker complains that my document includes tables without headers.</h4>
+<p id="faq-50" data-faq-paragraph="50">The Overleaf sandbox (<a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98)">https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98)</a> includes examples of how to tag header rows/columns. You need commands like these:</p>
+<pre tabindex="0" aria-label="Table header tagging command"><code id="faq-51" data-faq-paragraph="51">\tagpdfsetup{table/header-rows={1}}</code>
+</pre><pre tabindex="0" aria-label="Table header tagging command"><code id="faq-52" data-faq-paragraph="52">\tagpdfsetup{table/header-columns={1}}</code>
+</pre><p id="faq-53" data-faq-paragraph="53">More extensive documentation is available here: <a href="https://texdoc.org/serve/latex-lab-table/0">https://texdoc.org/serve/latex-lab-table/0</a></p>
+<p id="faq-54" data-faq-paragraph="54">Or reach out to me.</p>
+<h4 id="faq-55" data-faq-paragraph="55">The Canvas checker complains about the section headings in my document.</h4>
+<p id="faq-56" data-faq-paragraph="56">First, make sure that you are using semantic commands like \section for document structure. It is not enough, for example, to simply make text larger with \Large.</p>
+<p id="faq-57" data-faq-paragraph="57">If you have a long document, the problem might (depending on the document class and other issues) be that you are using low-level section headings (subsection) without their parents. Do you have a \section without a parent \chapter, for example?</p>
+<p><strong>Class-dependent detail:</strong> In <code>article</code>, <code>\section</code> is the top-level heading; it does not need a <code>\chapter</code>. Follow the hierarchy supported by your document class.</p><p id="faq-58" data-faq-paragraph="58">Finally, check that you are not loading packages that are not fully compatible with the tagging module: <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a></p>
+<p id="faq-59" data-faq-paragraph="59">And feel free to reach out to me with questions!</p>
+<h4 id="faq-60" data-faq-paragraph="60">If I have non-compliant files stored on a Canvas page, but they are not visible to students, will this affect my course&#x27;s accessibility score?</h4>
+<p id="faq-61" data-faq-paragraph="61">My understanding is that the answer is probably &#x27;yes&#x27;, and that you should <em>not</em> use Canvas to store non-compliant files not meant for students.</p>
+<p>This answer records my understanding, rather than a confirmed rule about the checker’s scoring. For current university guidance, consult <a href="https://ada.unl.edu/faqs/">UNL’s Canvas and Ally FAQ</a>.</p><h3 id="faq-62" data-faq-paragraph="62">Beamer and slides</h3>
+<p id="faq-63" data-faq-paragraph="63">The LaTeX tagging project <a href="https://latex3.github.io/tagging-project/tagging-status/#classes">does not support</a> (nor intend to support) the beamer class. There is an effort called <a href="https://www.texdev.net/ltx-talk/">ltx-talk</a> to create a new class with beamer-like functionality that generates tagged PDFs, but (as of July 2025) it is in the <em>very early </em>stages of development. </p>
+<p id="faq-64" data-faq-paragraph="64">Note that PowerPoint is also not recommended for producing accessible math output.</p>
+<p id="faq-65" data-faq-paragraph="65">(September 2025 update) I’m assuming that this largely affects instructors of large, convened service courses, for which we’ll handle the slides centrally. If you are concerned about generating compliant slides for an advanced course, please reach out to me (Zach) </p>
+<p id="faq-66" data-faq-paragraph="66">(February 2026 update) I have successfully created some slides using ltx-talk. The basic overlay functionality of beamer is implemented (very similarly to how beamer does it), but don’t expect to have fine control over the appearance of your slides or bells &amp; whistles. For example, I don’t think navigation buttons are implemented yet (or will be at all?). Some examples are available in <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">the Overleaf project</a> and in the repository folder (<a href="https://uofnebraska.sharepoint.com/:f:/r/sites/Restricted-UNL-Math-Service-Course-Repository/Shared%20Documents/Accessibility?csf=1&amp;web=1&amp;e=WwMk7K">Accessibility</a>). </p>
+<p>The package-status observation from October 2025 and slide updates from July 2025, September 2025, and February 2026 are dated experience reports. Check the linked project documentation for current support. The university repository may require a UNL sign-in.</p><h3 id="examples">LaTeX example and reusable code</h3>
+<p>The supplied <code>tagged-pdf-simple.tex</code> uses LuaLaTeX, the tagging module, MathML settings, theorem environments, and two mathematics problems. The metadata block below is taken from that example and belongs before <code>\documentclass</code>.</p>
+<pre tabindex="0" aria-label="Metadata block from the supplied LaTeX example"><code>\DocumentMetadata
+  {
+    lang = en-US,&#32;
+%    pdfversion = 2.0,
+&#9;tagging = on,
+    pdfstandard = ua-2,
+    pdfstandard = a-4,
+    testphase = latest,
+%    tagging-setup={math/setup=mathml-SE, math/alt/use}%
+  }
+\tagpdfsetup{math/setup=mathml-SE, math/alt/use}</code></pre>
+<p><strong>Before reusing the example:</strong> update the course title, author, due date, and PDF metadata (including the placeholder <code>pdftitle={ Is this a title? }</code>). The supplied source is preserved below, including its comments. It has not been compiled or checked here for PDF accessibility. The <code>testphase=latest</code> setting reflects the supplied example; consult the <a href="https://docs.overleaf.com/writing-and-editing/creating-accessible-pdfs">current Overleaf tagging guide</a> for your TeX version.</p>
+<details><summary>Full source of tagged-pdf-simple.tex</summary>
+<pre tabindex="0" aria-label="Full supplied LaTeX example"><code id="template-code">%%% you might need this: (leave the percentage sign) % !TEX TS-program = lualatex-dev
+%%% Compile this with LuaLaTeX, after first upgrading your TeX distribution
+\DocumentMetadata
+  {
+    lang = en-US,&#32;
+%    pdfversion = 2.0,
+&#9;tagging = on,
+    pdfstandard = ua-2,
+    pdfstandard = a-4,
+    testphase = latest,
+%    tagging-setup={math/setup=mathml-SE, math/alt/use}%
+  }
+\tagpdfsetup{math/setup=mathml-SE, math/alt/use}
+%%%-------------------------------------------------------------------------------------------------------------------------
+\documentclass [reqno, 11pt] {article}
+\usepackage {unicode-math}
+%%%----------------------------------------------------------------------------------------------------------------------------
+%\usepackage {MnSymbol}&#9;&#9;&#9;&#9;%%% MinionPro already loads this
+%%\usepackage [mathlf,&#9;&#9;&#9;&#9;&#9;&#9;%%% lining figures (not old-style) in math mode
+%%%onlytext
+%%] {MinionPro}
+%%%------------------------------------------ standard packages -------------------------------------------------------
+\usepackage {amsthm}
+\usepackage {amsmath}
+%\usepackage {tikz}
+\usepackage [ margin = 1.6in ] {geometry}
+%%%-------------------------------------------------------------------------------------------------------------------------
+\usepackage {xcolor}
+\definecolor {huskerred} {RGB} {208, 0, 0} &#9;% https://ucomm.unl.edu/brand/colors
+\definecolor {newblue} {rgb} {0,0,.6}
+\definecolor {newgreen} {rgb} {.2,.6,.2}
+%%%-------------------------------------------------------------------------------------------------------------------------
+%\usepackage {graphicx}
+%%%----------------------------------------------------------------------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem} %[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem {prob} {Problem}
+\newtheorem* {solution*} {Solution}
+%%%----------------------------------------------------------------------------------------------------------------------------
+\title &#9;&#9;{Math 450, Problem Set 7}
+\author &#9;{Zach Norwood}
+\date &#9;{Due Thursday 11 Apr 2024.}
+%%%----------------------------------------------------------------------------------------------------------------------------
+%%% hyperref
+\usepackage {hyperref}
+\hypersetup{
+&#9;bookmarks,&#32;
+&#9;colorlinks = true,
+&#9;citecolor = newblue,&#9;&#9;%newblue
+&#9;linkcolor = newblue, &#9;&#9;%newblue
+&#9;urlcolor = newblue,
+&#9;pdftitle={ Is this a title? },&#32;
+&#9;pdfauthor={Zach Norwood}&#32;
+}
+%%%----------------------------------------------------------------------------------------------------------------------------
+\newenvironment {hint}%
+{\begin {small} (\emph{Hint:}}{\unskip)\end{small}}
+%%%----------------------------------------------------------------------------------------------------------------------------
+\newcommand {\defem} {\textbf}
+\renewcommand {\phi} {\varphi}
+\newcommand {\C} {\mathbf{C}}
+\newcommand {\R} {\mathbf{R}}
+\newcommand {\Q} {\mathbf{Q}}
+\newcommand {\Z} {\mathbf{Z}}
+\newcommand {\N} {\mathbf{N}}
+%%%----------------------------------------------------------------------------------------------------------------------------
 \begin{document}
+%%%----------------------------------------------------------------------------------------------------------------------------
 \maketitle
-\section{Introduction}
-Replace this text with your content.
+%%%=====================================================================
+\begin {prob}
+Give a proof by induction of the following identity, proved by other means in class.
+ \[
+ &#9;\sum_{k=0}^n c(n,k) x^k = x^{(n)}.
+ \]
+\end {prob}
+%%%-------------------------------------------------------------------------------------------------------------------------
+%%%%=====================================================================
+\begin {prob}
+ Recall from Worksheet~7 that the sequence of numbers $B_n$, $n\in\N$, is defined by the recurrence
+ \[
+  B_0 = 1, \quad \sum_{k=0}^n \binom{n+1}{k} B_k = 0,
+ \]
+ and has egf $f(x) = \frac{x}{e^x-1}$.
+\begin {enumerate} %%[(a)]
+\item
+What is the solution to the following similar recurrence?
+\[
+c_0 = 1, \quad \sum_{0 \le k \le n} \binom{n}{k} c_k = 0
+\]
+\item
+%By showing that $f(x) + x/2$ is an even function or otherwise,
+Show that $B_n = 0$ for all odd $n \ge 3$.
+\begin {hint}
+ One approach would begin by showing that $f(x) + x/2$ is an even function.
+\end {hint}
+\end {enumerate}
+\end {prob}
+%%%-------------------------------------------------------------------------------------------------------------------------
+%%%=====================================================================
+
 \end{document}
-</code></pre>
-      <div class="actions" id="template-actions" hidden>
-        <button type="button" id="copy-template">Copy code</button>
-        <button type="button" id="download-template">Download .tex</button>
-      </div>
-      <p class="status" id="template-status" role="status" aria-live="polite"></p>
-      <noscript><p>You can select and copy the code above. The buttons require JavaScript.</p></noscript>
-    </section>
-    <section id="check" aria-labelledby="check-title">
-      <h2 id="check-title">Check your document</h2>
-      <p class="placeholder">Coming soon: practical checks for the finished document, including the limits of automated checks.</p>
-    </section>
-    <section id="help" aria-labelledby="help-title">
-      <h2 id="help-title">Further resources and help</h2>
-      <p class="placeholder">Coming soon: university resources, source references, and contacts for support.</p>
-    </section>
-    <footer>
-      <p>Maintained by Zach Norwood, department accessibility ambassador.<br>Skeleton created <time datetime="2026-10-01">October 1, 2026</time>. Content review pending.</p>
-    </footer>
-  </main>
-  <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</code></pre></details>
+<div class="actions" id="template-actions" hidden><button type="button" id="copy-template">Copy full LaTeX example</button><button type="button" id="download-template">Download tagged-pdf-simple.tex</button></div>
+<p class="status" id="template-status" role="status" aria-live="polite"></p>
+<noscript><p>Open the full source above to select and copy it. The buttons require JavaScript.</p></noscript>
+</section>
+<section id="alternatives" aria-labelledby="alternatives-title"><h2 id="alternatives-title">HTML and alternatives to LaTeX</h2>
+<h3 id="faq-27" data-faq-paragraph="27">I want to convert small documents. What do I do?</h3>
+<p id="faq-28" data-faq-paragraph="28">You have at least three options:</p>
+<ol><li id="faq-29" data-faq-paragraph="29">You can use LaTeX syntax to produce math directly in a Canvas page: try \(…\) for in-line math or $$...$$ for displayed math.</li>
+<li id="faq-30" data-faq-paragraph="30">The goal of <a href="https://latex3.github.io/tagging-project/documentation/prototype-usage-instructions.html">the LaTeX Tagging Project</a> (described more in <a href="#faq-32">this later answer</a>) is to use LaTeX to produce accessible ‘tagged’ PDFs. (These have, essentially, an invisible XML layer that records document structure and math and can be read properly by screenreaders.) You will need to update your TeX distribution in order to use this, and note that many LaTeX packages and classes are unsupported. It is not yet clear to me whether there is a material difference in accessible PDF vs HTML for students who use screenreaders; that requires more testing. You can try this out by playing in <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">this Overleaf sandbox</a>.</li>
+<li id="faq-31" data-faq-paragraph="31">Various tools exist to translate LaTeX source into HTML. (In most cases mathematical formulas are converted to MathML.) For example, LaTeXML is what the arXiv has been using to generate HTML versions of articles. <a href="https://arxiv.org/html/2506.24088v1">Example</a>.</li>
+</ol><p><strong>About tagged PDFs:</strong> the FAQ’s “invisible XML layer” is an informal description. PDF tags provide a structure tree, and mathematical content can include MathML. The experience with the resulting PDF and with HTML still needs testing with the readers and assistive tools students use.</p>
+<h3 id="pretext">PreTeXt</h3><p>I have extensive experience with PreTeXt and plan to add guidance and examples here. This section will cover another approach to producing mathematics for the web.</p>
+</section>
+<section id="handwriting" aria-labelledby="handwriting-title"><h2 id="handwriting-title">Handwritten content</h2>
+<h3 id="faq-67" data-faq-paragraph="67">Handwritten content</h3>
+<p id="faq-68" data-faq-paragraph="68">Handwritten content, either scanned or composed on a tablet, will not meet accessibility standards without some effort. (Someone, either human or machine, needs to convert the handwriting into text that a screen-reader can understand! And, as always, the math needs to be in an accessible format like MathML.)</p>
+<p id="faq-69" data-faq-paragraph="69">Preliminary tests with Copilot produce mixed results. Here is <a href="https://m365.cloud.microsoft/chat/entity1-d870f6cd-4aa5-4d42-9626-ab690c041429/eyJpZCI6IlZYTmxjbFl4ZkdoMGRIQnpPaTh2YzNWaWMzUnlZWFJsTFdsdWRDNXZabVpwWTJVdVkyOXRMM3hQU1VRNll6Sm1NV014TldNdE5qWTFPQzAwWldFMExUbG1ZMkl0TVRoa1lqZGpOell4T1RsbWZHTmlPV1kzWkdReExUazVZemN0TkRBd09TMDVNRFZqTFRoa04yRmpaV1ZsWVRrNU1Yd3lNREkxTFRBM0xUTXhWREUxT2pFM09qRXhMalUyT1RBMU9UUmEiLCJzY2VuYXJpbyI6InNoYXJlTGlua1ZpYVByb21wdExpYnJhcnkiLCJwcm9wZXJ0aWVzIjp7InByb21wdFNvdXJjZSI6InVzZXIiLCJjbGlja1RpbWVzdGFtcCI6IjIwMjUtMDctMzFUMTU6MTc6MjQuMzQ4WiJ9LCJjaGF0VHlwZSI6IndlYiIsInZlcnNpb24iOjEuMX0">one attempt</a>, in which Copilot apparently ignored some chunks of the input and rewrote others.</p>
+<p id="faq-70" data-faq-paragraph="70">NB. Different tablet writing programs produce very different PDFs. </p>
+<p id="faq-71" data-faq-paragraph="71">(February 2026 update) The chatbots are producing better results, though they still try to <em>edit</em> instead of just <em>transcribe</em>. People at the CTT and I are working to develop a replicable workflow. Please let me know if you’re interested in participating or in our results.</p>
+<p>The February 2026 update records work in progress at that time. The linked Copilot example may require a Microsoft sign-in.</p></section>
+<section id="resources" aria-labelledby="resources-title"><h2 id="resources-title">Resources and further reading</h2>
+<ul><li id="faq-73" data-faq-paragraph="73"><a href="https://ada.unl.edu/title-ii-faqs/">UNL’s FAQ</a>. Highly recommend that you look through this.</li>
+<li id="faq-74" data-faq-paragraph="74">A recent, very useful page on Overleaf Docs: <a href="https://docs.overleaf.com/writing-and-editing/creating-accessible-pdfs">https://docs.overleaf.com/writing-and-editing/creating-accessible-pdfs</a> </li>
+<li id="faq-75" data-faq-paragraph="75">The arXiv attempts to automagically generate html versions of articles now. (<a href="https://info.arxiv.org/about/accessible_HTML.html">arXiv accessible HTML</a>)</li>
+<li id="faq-76" data-faq-paragraph="76">Overleaf gives an article (<a href="https://www.overleaf.com/learn/latex/An_introduction_to_tagged_PDF_files%3A_internals_and_the_challenges_of_accessibility">link to Overleaf article</a>) that describes this issue. Appears to be several years old, though.</li>
+<li id="faq-77" data-faq-paragraph="77"><a href="https://community.canvaslms.com/t5/Canvas-Releases/Canvas-Release-Notes-2021-02-20/ta-p/434781#toc-hId-698876024">Canvas supports MathJax input</a></li>
+<li id="faq-78" data-faq-paragraph="78">You can try MathJax <a href="https://jsbin.com/?html=%3C!DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22utf-8%22%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%22%3E%0A%20%20%3Ctitle%3EMathJax%20example%3C%2Ftitle%3E%0A%20%20%3Cscript%20id%3D%22MathJax-script%22%20async%0A%20%20%20%20%20%20%20%20%20%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fmathjax%404%2Ftex-mml-chtml.js%22%3E%0A%20%20%3C%2Fscript%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%3Cp%3E%0A%20%20When%20%5C(a%20%5Cne%200%5C)%2C%20there%20are%20two%20solutions%20to%20%5C(ax%5E2%20%2B%20bx%20%2B%20c%20%3D%200%5C)%20and%20they%20are%0A%20%20%5C%5Bx%20%3D%20%7B-b%20%5Cpm%20%5Csqrt%7Bb%5E2-4ac%7D%20%5Cover%202a%7D.%5C%5D%0A%3C%2Fp%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E&amp;live">here</a>. (Create portable HTML documents instead of PDF files, or edit Canvas pages directly.)</li>
+<li id="faq-79" data-faq-paragraph="79"><a href="https://latex3.github.io/tagging-project/documentation/prototype-usage-instructions.html">The LaTeX Tagging Project</a></li>
+<li id="faq-80" data-faq-paragraph="80">LaTeXML, for converting LaTeX source to HTML output. (This is what the arXiv has been doing. <a href="https://arxiv.org/html/2506.24088v1">Example</a>.)</li>
+<li id="faq-81" data-faq-paragraph="81"><a href="https://www.ctan.org/pkg/ltx-talk">ltx-talk</a>, an in-development alternative to beamer</li>
+</ul></section>
+<footer><p>Maintained by Zach Norwood, department accessibility ambassador. Please reach out with questions, examples, or interest in testing workflows.</p><p>Updated <time datetime="2026-10-01">October 1, 2026</time>. Incorporates <cite>FAQ and resources</cite> and <code>tagged-pdf-simple.tex</code>. Further contributions and PreTeXt guidance will be added.</p></footer></main><script>
     const template = document.getElementById('template-code');
     const status = document.getElementById('template-status');
     document.getElementById('template-actions').hidden = false;
@@ -115,6 +278,8 @@ Replace this text with your content.
         await navigator.clipboard.writeText(template.textContent);
         status.textContent = 'Code copied to clipboard.';
       } catch {
+        template.closest('details').open = true;
+        template.parentElement.focus();
         const selection = window.getSelection();
         const range = document.createRange();
         range.selectNodeContents(template);
@@ -128,13 +293,11 @@ Replace this text with your content.
       const url = URL.createObjectURL(file);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'document-structure-example.tex';
+      link.download = 'tagged-pdf-simple.tex';
       document.body.appendChild(link);
       link.click();
       link.remove();
       setTimeout(() => URL.revokeObjectURL(url), 10000);
-      status.textContent = 'Download requested: document-structure-example.tex.';
+      status.textContent = 'Download requested: tagged-pdf-simple.tex.';
     });
-  </script>
-</body>
-</html>
+  </script></body></html>
