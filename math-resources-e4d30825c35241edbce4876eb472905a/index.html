@@ -648,110 +648,156 @@ text-unit para hooks differ!</code></pre>
           uses rather than choosing a format solely for Ally’s score.
         </p>
         <h4 id="full-example">
-          Full example: tagged-pdf-simple.tex
+          Full example: tagged-pdf-example.tex
         </h4>
         <p>
-          This short problem set uses LuaLaTeX, the tagging module, MathML, theorem environments,
-          and hyperref metadata. It uses the same metadata block as
+          This test document uses LuaLaTeX, the tagging module, and MathML. It includes displayed
+          formulas and matrices, a list with custom labels, tables with tagged header rows and
+          columns, and a TikZ figure with alternative text. It uses the same metadata settings as
           <a href="#getting-started">Getting started</a>, including the
           <a href="#math-alt-use"><code>math/alt/use</code> compromise</a>. Change the title,
-          author, date, and <code>pdftitle</code> before using it.
+          author, date, and <code>pdftitle</code> before reusing it.
+        </p>
+        <p>
+          The last example, an image with alternative text, is commented out because it needs an
+          image file. Uncomment it once you have an image named <code>parabola</code> in the same
+          folder, and update its description.
         </p>
         <details>
           <summary>
-            Show the full source of tagged-pdf-simple.tex
+            Show the full source of tagged-pdf-example.tex
           </summary>
-          <pre tabindex="0" aria-label="Full LaTeX example"><code id="template-code">% tagged-pdf-simple.tex
-% Compile with LuaLaTeX, using TeX Live 2026 or later.
+          <pre tabindex="0" aria-label="Full LaTeX example"><code id="template-code">% !TEX TS-program = lualatex
+% tagged-pdf-example.tex
 \DocumentMetadata{
-  lang = en-US,
-  pdfversion = 2.0,
-  tagging = on,
+  lang        = en-US,
+  pdfversion  = 2.0,
   pdfstandard = ua-2,
+  % pdfstandard = a-4f, % or a-4, for archiving; see the page for details
+  tagging     = on,
   tagging-setup = {math/setup=mathml-SE, math/alt/use}
 }
-\documentclass[reqno, 11pt]{article}
+%%%%%%%% Don't load packages you don't need, and check here for packages
+%%%%%%%% not supported by the tagging project:
+%%%%%%%% https://latex3.github.io/tagging-project/tagging-status/
+%%%%%%%% Even amsmath and amsthm have been only partially supported!
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[math-style=TeX]{unicode-math} % also loads fontspec
+%%%%%%%% Fonts are handled differently by LuaLaTeX.
+%%%%%%%% Here is an example of declaring alternative fonts.
+%%%%%%%% You will need to have any fonts installed.
+  % \setmathfont{XITS Math}[StylisticSet = 1]
+  % \setmainfont{Crimson}
 
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{unicode-math} % load after amsmath
-\usepackage[margin=1.6in]{geometry}
+\usepackage{tikz}
 
-\usepackage{xcolor}
-\definecolor{newblue}{rgb}{0,0,.6}
-
-\theoremstyle{definition}
-\newtheorem{thm}{Theorem}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{prob}{Problem}
-\newtheorem*{solution*}{Solution}
-
-% Change the title, author, and date, and keep pdftitle below in sync with \title.
-\title{Math 450, Problem Set 7}
+\title{Tagged PDF tests}
 \author{Zach Norwood}
-\date{Due Thursday 11 April 2024}
+\date{September 2025}
 
-\usepackage{hyperref}
-\hypersetup{
-  colorlinks = true,
-  citecolor = newblue,
-  linkcolor = newblue,
-  urlcolor = newblue,
-  pdftitle = {Math 450, Problem Set 7},
-  pdfauthor = {Zach Norwood}
-}
-
-\newenvironment{hint}
-  {\begin{small}(\emph{Hint:}}
-  {\unskip)\end{small}}
-
-\newcommand{\defem}{\textbf}
-% unicode-math sets up its symbols at \begin{document}, so redefine \phi there.
-\AtBeginDocument{\renewcommand{\phi}{\varphi}}
-\newcommand{\C}{\mathbf{C}}
-\newcommand{\R}{\mathbf{R}}
-\newcommand{\Q}{\mathbf{Q}}
-\newcommand{\Z}{\mathbf{Z}}
-\newcommand{\N}{\mathbf{N}}
+\usepackage{hyperref}   %%% load hyperref *last*
 
 \begin{document}
-
+\hypersetup{
+  pdftitle={Tagged PDF tests},
+  pdfauthor={Zach Norwood},
+  pdfkeywords={accessibility, tagging},
+  % pdfdisplaydoctitle
+}
 \maketitle
 
-\begin{prob}
 Give a proof by induction of the following identity, proved by other means in class.
 \[
   \sum_{k=0}^n c(n,k) x^k = x^{(n)}.
 \]
-\end{prob}
 
-\begin{prob}
-Recall from Worksheet~7 that the sequence of numbers $B_n$, $n \in \N$, is defined by the
-recurrence
+Matrix--vector multiplication gives a linear combination of the columns:
 \[
-  B_0 = 1, \quad \sum_{k=0}^n \binom{n+1}{k} B_k = 0,
+\begin{bmatrix}
+ \vert &amp;        &amp; \vert \\
+ x_1   &amp; \cdots &amp; x_n   \\
+ \vert &amp;        &amp; \vert
+\end{bmatrix}
+\begin{bmatrix}
+ c_1 \\ \vdots \\ c_n
+\end{bmatrix}
+=
+c_1 \begin{bmatrix} \vert \\ x_1 \\ \vert \end{bmatrix}
++ \cdots + c_n \begin{bmatrix} \vert \\ x_n \\ \vert \end{bmatrix}
 \]
-and has egf $f(x) = \frac{x}{e^x-1}$.
-\begin{enumerate}
-\item
-What is the solution to the following similar recurrence?
+
+\section{Introduction}
+
+\subsection{Your first theorem}
+
+A miracle of nature:
 \[
-  c_0 = 1, \quad \sum_{0 \le k \le n} \binom{n}{k} c_k = 0
+f(a) = \frac{1}{2\pi i} \oint_\gamma \frac{f(z)}{z-a}\,dz
 \]
-\item
-Show that $B_n = 0$ for all odd $n \ge 3$.
-\begin{hint}
-One approach would begin by showing that $f(x) + x/2$ is an even function.
-\end{hint}
+
+\begin{enumerate}[item-label=(\alph{*})]
+%%% ^^^ no space between {enumerate} and [...]!
+%%% try \Alph, \arabic, or \roman instead of \alph
+\item start with A
+\item then on to B
+\item one more to C
+\item and end with D.
 \end{enumerate}
-\end{prob}
+
+Tables require additional code to tag header rows/columns.
+%%%%% full documentation here: https://texdoc.org/serve/latex-lab-table/0
+\tagpdfsetup{table/header-rows={1}}
+\tagpdfsetup{table/header-columns={1}}
+\begin{center}
+\begin{tabular}{r | l l}
+ $x$ &amp; $f(x)$ &amp; $f(x)^2$ \\ \hline
+ $1$ &amp; $\pi$  &amp; $\pi^2$  \\
+ $2$ &amp; $-4$   &amp; $16$
+\end{tabular}
+\end{center}
+
+Your tagging settings will persist until you change them.
+So change them when you add a table that has different header properties.
+\tagpdfsetup{table/header-rows={}}
+\tagpdfsetup{table/header-columns={1}}
+\[
+\begin{array}{c| ccccc}
+n   &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+\hline
+p_n &amp; 2 &amp; 3 &amp; 5 &amp; 7 &amp; 11 \\
+\end{array}
+\]
+
+\clearpage
+
+%%% Tagging of images is nontrivial.
+%%% https://texdoc.org/serve/latex-lab-graphic/0
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[style=thick, alt={The Petersen Graph}]
+  \foreach \x in {0,72,2*72,3*72,4*72}
+  {
+  \draw (\x+18:3cm) node {} -- (\x+90:3cm) node {};
+  \draw (\x+18:3cm) node {} -- (\x+18:1.7cm) node {};
+  \draw (\x+18:1.7cm) node {} -- (\x+162:1.7cm) node {};
+  }
+\end{tikzpicture}
+\caption{The Petersen Graph}
+\label{petersen}
+\end{figure}
+
+%%% This needs an image file named parabola (.png, .jpg, or .pdf) in the
+%%% same folder. Uncomment it once you have one, and describe your own image.
+% \includegraphics[height=4cm, alt={a parabola with $y$-intercept $(0,3)$ and vertex $(3,-6)$}]{parabola}
 
 \end{document}</code></pre>
         </details>
         <div class="code-tools">
           <div class="actions" hidden="">
             <button type="button" data-copy="template-code">Copy full LaTeX example</button>
-            <button type="button" data-download="template-code" data-filename="tagged-pdf-simple.tex">Download tagged-pdf-simple.tex</button>
+            <button type="button" data-download="template-code" data-filename="tagged-pdf-example.tex">Download tagged-pdf-example.tex</button>
           </div>
           <p class="status" role="status" aria-live="polite"></p>
         </div>
