@@ -2,21 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow"> <title>Accessible math documents | Department
-    resources</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Accessible math documents | Department resources</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: light dark;
+        --text: #202b36;
+        --page: #f5f7f8;
+        --card: #ffffff;
+        --border: #d3dce1;
+        --heading: #163c4a;
+        --link: #075b76;
+        --muted: #4d5b66;
+        --eyebrow: #49606b;
+        --code-bg: #edf2f5;
+        --focus: #985200;
+        --button-bg: #075b76;
+        --button-hover: #034459;
+        --button-text: #ffffff;
         font-family: system-ui, sans-serif;
         line-height: 1.65;
-        color: #202b36;
-        background: #f5f7f8;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --text: #dde4e8;
+          --page: #11171c;
+          --card: #1a2229;
+          --border: #34434d;
+          --heading: #a3d4e6;
+          --link: #7fc8e3;
+          --muted: #a9b6be;
+          --eyebrow: #a9b6be;
+          --code-bg: #0e1418;
+          --focus: #ffb45e;
+          --button-bg: #7fc8e3;
+          --button-hover: #a8dcef;
+          --button-text: #0b1a20;
+        }
       }
       * {
         box-sizing: border-box;
       }
       body {
         margin: 0;
+        color: var(--text);
+        background: var(--page);
       }
       main {
         max-width: 54rem;
@@ -25,7 +55,7 @@
       }
       h1, h2, h3 {
         line-height: 1.25;
-        color: #163c4a;
+        color: var(--heading);
       }
       h1 {
         font-size: clamp(2rem, 5vw, 2.8rem);
@@ -34,10 +64,8 @@
         margin-top: 0;
       }
       a {
-        color: #075b76;
+        color: var(--link);
         text-underline-offset: .18em;
-      }
-      a {
         overflow-wrap: anywhere;
       }
       h3 {
@@ -58,14 +86,11 @@
       details {
         margin: 1rem 0;
       }
-      s {
-        color: #4d5b66;
-      }
       a:hover {
         text-decoration-thickness: .15em;
       }
       :focus-visible {
-        outline: 3px solid #985200;
+        outline: 3px solid var(--focus);
         outline-offset: 4px;
       }
       .skip-link {
@@ -73,26 +98,18 @@
         top: -5rem;
         left: 1rem;
         padding: .5rem 1rem;
-        background: white;
+        background: var(--card);
       }
       .skip-link:focus {
         top: 1rem;
       }
       .eyebrow {
         font-weight: 650;
-        color: #49606b;
-      }
-      .intro {
-        font-size: 1.15rem;
-      }
-      .notice {
-        border-left: 4px solid #a65c00;
-        padding: .75rem 1rem;
-        background: #fff5e5;
+        color: var(--eyebrow);
       }
       nav, section {
-        background: white;
-        border: 1px solid #d3dce1;
+        background: var(--card);
+        border: 1px solid var(--border);
         border-radius: .5rem;
         padding: 1.5rem;
         margin-top: 1.5rem;
@@ -104,13 +121,15 @@
       li + li {
         margin-top: .4rem;
       }
-      .placeholder {
-        color: #4d5b66;
+      .updated {
+        margin: 2rem 0 0;
+        font-size: .9rem;
+        color: var(--muted);
       }
       pre {
         max-width: 100%;
         overflow-x: auto;
-        background: #edf2f5;
+        background: var(--code-bg);
         padding: 1rem;
         border-radius: .25rem;
         line-height: 1.5;
@@ -130,15 +149,15 @@
       button {
         font: inherit;
         font-weight: 600;
-        border: 1px solid #075b76;
+        border: 1px solid var(--button-bg);
         border-radius: .3rem;
-        background: #075b76;
-        color: white;
+        background: var(--button-bg);
+        color: var(--button-text);
         padding: .55rem 1rem;
         cursor: pointer;
       }
       button:hover {
-        background: #034459;
+        background: var(--button-hover);
       }
       .status {
         min-height: 1.65em;
@@ -147,13 +166,24 @@
       footer {
         margin-top: 2rem;
         font-size: .95rem;
-        color: #4d5b66;
+        color: var(--muted);
+      }
+      footer h2 {
+        font-size: 1.05rem;
+        color: var(--muted);
       }
       @media print {
-        body {
-          background: white;
+        :root {
+          --text: #202b36;
+          --page: #ffffff;
+          --card: #ffffff;
+          --border: #d3dce1;
+          --heading: #163c4a;
+          --link: #075b76;
+          --muted: #4d5b66;
+          --code-bg: #edf2f5;
         }
-        .actions, .skip-link {
+        .actions, .status, .skip-link {
           display: none;
         }
         section, nav {
@@ -189,7 +219,7 @@
         </h2>
         <ul>
           <li>
-            <a href="#getting-started">Getting Started</a>
+            <a href="#getting-started">Getting started</a>
           </li>
           <li>
             <a href="#start">Context and choosing a format</a>
@@ -216,7 +246,7 @@
 
       <section id="getting-started" aria-labelledby="getting-started-title">
         <h2 id="getting-started-title">
-          Getting Started
+          Getting started
         </h2>
         <h3 class="faq-question" id="faq-32" data-faq-paragraph="32">
           I just want to create accessible PDFs with LaTeX. How do I do that?
@@ -228,13 +258,19 @@
           </li>
           <li>
             <strong>Add this before <code>\documentclass</code>:</strong>
-            <pre tabindex="0" aria-label="Getting started document metadata"><code>\DocumentMetadata{
+            <pre tabindex="0" aria-label="Getting started document metadata"><code id="metadata-code">\DocumentMetadata{
   lang = en-US,
   pdfversion = 2.0,
   tagging = on,
   pdfstandard = ua-2,
   tagging-setup = {math/setup=mathml-SE, math/alt/use}
 }</code></pre>
+            <div class="code-tools">
+              <div class="actions" hidden="">
+                <button type="button" data-copy="metadata-code">Copy metadata block</button>
+              </div>
+              <p class="status" role="status" aria-live="polite"></p>
+            </div>
             This uses the current tagging interface. <a href="#pdf-standards">PDF version and
             standards explained below</a>. <code>math/alt/use</code> is a compromise for Ally; see
             <a href="#math-alt-use">the accessibility tradeoff</a>.
@@ -251,11 +287,14 @@
         <p>
           For document-specific details, see <a href="#faq-49">table headers</a>,
           <a href="#latex-figures">figures and alternative text</a>, <a href="#faq-55">section
-          headings</a>, and <a href="#faq-45">the PDF title</a>. You can also <a href="#examples">copy
-          or download the full example</a>.
+          headings</a>, and <a href="#faq-45">the PDF title</a>. You can also <a href="#full-example">copy
+          or download a full example document</a>.
         </p>
         <p>
           For questions about the auto-checker, see <a href="#ally">Canvas and Ally scores</a>.
+        </p>
+        <p class="updated">
+          Last updated <time datetime="2026-10-16">October 16, 2026</time>
         </p>
       </section>
 
@@ -266,24 +305,13 @@
         <h3 class="faq-question" id="faq-16" data-faq-paragraph="16">
           What is going on?
         </h3>
-        <p>
-          <strong>Deadline update, October 2026:</strong> UNL’s current FAQ gives April 26, 2027 as
-          the revised Title II deadline and says digital content must meet accessibility standards
-          as soon as practical. The technical standard remains WCAG 2.1 A and AA. See
-          <a href="https://ada.unl.edu/faqs/">UNL’s current FAQ</a> for policy details.
+        <p id="faq-17" data-faq-paragraph="17">
+          University digital content must meet accessibility standards, specifically WCAG 2.1 A
+          and AA. Right now, the big priority is to make digital teaching materials compliant. As of
+          October 2026, <a href="https://ada.unl.edu/faqs/">UNL’s FAQ</a> gives April 26, 2027 as
+          the revised Title II deadline and says digital content must meet the standards as soon as
+          practical. See the FAQ for policy details.
         </p>
-        <details>
-          <summary>
-            Original timing in the department FAQ (superseded)
-          </summary>
-          <p id="faq-17" data-faq-paragraph="17">
-            Starting in April 2026, all university digital content must meet accessibility
-            standards, specifically WCAG 2.1 AA. Right now, the big priority is to make digital
-            teaching materials compliant. You can read more about this at
-            <a href="https://ada.unl.edu/">ada.unl.edu</a>. See especially
-            <a href="https://ada.unl.edu/title-ii-faqs/">the FAQ page</a>:
-          </p>
-        </details>
         <p id="faq-18" data-faq-paragraph="18">
           Math faces unique challenges here, because of mathematical formulas. Luckily, the good
           folks at <a href="https://latex-project.org/about/team/">The LaTeX Project</a> have done a
@@ -325,6 +353,9 @@
             </ul>
           </li>
         </ul>
+        <p class="updated">
+          Last updated <time datetime="2026-10-16">October 16, 2026</time>
+        </p>
       </section>
 
       <section id="latex" aria-labelledby="latex-title">
@@ -344,19 +375,21 @@
           But simple LaTeX documents can be made accessible, with few headaches! Here is an overview
           of what you must do:
         </p>
-        <p>
-          <strong>Installation update:</strong> Use an up-to-date TeX Live 2026 installation, or
-          select TeX Live 2026 in Overleaf. Earlier installation advice is struck through below, as
-          in the original FAQ.
-        </p>
         <p id="faq-35" data-faq-paragraph="35">
-          <s>Make sure you have </s><s>a totally up-to-date</s><s> </s><s>TeX</s><s> installation.
-          (Not as easy as it should be. For example, on a Mac it is not enough to install </s><s>MacTeX</s><s>
-          2025. You also need to update everything, </s><s>e.g.</s><s> by executing `[</s><s>sudo</s><s>]
-          </s><s>tlmgr</s><s> update --all` in the </s><s>Terminal.)</s><s> Or use </s><a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98"><s>Overleaf</s></a><s>,
-          which handles the </s><s>TeX</s><s> installation for you.</s> (April 2026 update:
-          <a href="https://www.tug.org/texlive/">TeX Live 2026 is available</a>! Upgrade to TeX Live
-          2026 and you should be good. 🙂)
+          <strong>Use an up-to-date TeX installation.</strong> Install
+          <a href="https://www.tug.org/texlive/">TeX Live 2026</a> (or an equivalent distribution
+          based on it), or select TeX Live 2026 in Overleaf, which handles the installation for you.
+          Then keep it current: tagging support changes with LaTeX releases. For example,
+          <a href="https://www.ctan.org/pkg/ltx-talk">ltx-talk requires LaTeX 2025-11-01 or later</a>.
+          To update all installed packages and the package manager itself, run:
+        </p>
+        <pre tabindex="0" aria-label="Update TeX Live packages"><code>tlmgr update --self --all</code></pre>
+        <p>
+          For a system-wide installation that requires administrator permissions, use <code>sudo
+          tlmgr update --self --all</code>. For a targeted update, use <code>tlmgr update
+          package-name</code>. These commands update packages within your current TeX Live release;
+          they do not upgrade an older annual release (such as TeX Live 2025) to TeX Live 2026. See
+          the <a href="https://tug.org/texlive/doc/tlmgr.html">TeX Live Manager documentation</a>.
         </p>
         <p id="faq-36" data-faq-paragraph="36">
           Minor edits to your LaTeX code will be necessary, summarized here:
@@ -374,23 +407,6 @@
           <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">the Overleaf template</a>
           for an example of how to change the font.
         </p>
-        <p>
-          Keep your TeX distribution current: use TeX Live 2026 or an equivalent updated
-          distribution. Tagging support changes with LaTeX releases; for example,
-          <a href="https://www.ctan.org/pkg/ltx-talk">ltx-talk requires LaTeX 2025-11-01 or later</a>.
-        </p>
-        <p>
-          Within an installed TeX Live release, update the packages and the manager itself with:
-        </p>
-        <pre tabindex="0" aria-label="Update TeX Live packages"><code>tlmgr update --self --all</code></pre>
-        <p>
-          For a system-wide installation that requires administrator permissions, use <code>sudo
-          tlmgr update --self --all</code>. <code>tlmgr update --all</code> updates all installed
-          packages; adding <code>--self</code> also updates the manager. For a targeted update, use
-          <code>tlmgr update package-name</code>. These package updates are distinct from upgrading
-          an older annual TeX Live release to TeX Live 2026. See the
-          <a href="https://tug.org/texlive/doc/tlmgr.html">TeX Live Manager documentation</a>.
-        </p>
         <h3 class="faq-question" id="faq-39" data-faq-paragraph="39">
           Something breaks when I try to load my favorite LaTeX class / package.
         </h3>
@@ -399,8 +415,8 @@
           <a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a>
         </p>
         <p id="faq-41" data-faq-paragraph="41">
-          As of 2025-10-20, even very popular packages like amsmath and amsthm are only partially
-          supported!
+          Even very popular packages like amsmath and amsthm have been only partially supported, so
+          check the status page for the current state of anything you load.
         </p>
         <h3 class="faq-question" id="faq-42" data-faq-paragraph="42">
           In trying to generate tagged PDFs, I&#x27;m getting an error in compilation that looks
@@ -437,7 +453,8 @@ text-unit para hooks differ!</code></pre>
         </p>
         <p id="faq-47" data-faq-paragraph="47">
           If you open your PDF with Acrobat or another PDF viewer and look at the document
-          properties, do you see a title? If not, return to question 1 or report it to me (Zach).
+          properties, do you see a title? If not, recheck the setup steps in
+          <a href="#getting-started">Getting started</a> or report it to me (Zach).
         </p>
         <p id="faq-48" data-faq-paragraph="48">
           Is your document class fully supported by the tagging module? (<a href="https://latex3.github.io/tagging-project/tagging-status/">https://latex3.github.io/tagging-project/tagging-status/</a>)
@@ -449,12 +466,21 @@ text-unit para hooks differ!</code></pre>
         </h4>
         <p id="faq-50" data-faq-paragraph="50">
           The Overleaf sandbox (<a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98</a>)
-          includes examples of how to tag header rows/columns. You need commands like these:
+          includes examples of how to tag header rows/columns. For example, this marks the first row
+          of a table as its header row:
         </p>
-        <pre tabindex="0" aria-label="Table header tagging command"><code id="faq-51" data-faq-paragraph="51">\tagpdfsetup{table/header-rows={1}}</code>
-</pre>
-        <pre tabindex="0" aria-label="Table header tagging command"><code id="faq-52" data-faq-paragraph="52">\tagpdfsetup{table/header-columns={1}}</code>
-</pre>
+        <pre tabindex="0" aria-label="Table with a tagged header row"><code id="faq-51" data-faq-paragraph="51">\begin{center}
+\tagpdfsetup{table/header-rows={1}} % applies to tables later in this group
+\begin{tabular}{lcc}
+  Problem &amp; Points &amp; Due \\
+  1       &amp; 10     &amp; Monday \\
+  2       &amp; 15     &amp; Wednesday \\
+\end{tabular}
+\end{center}</code></pre>
+        <p id="faq-52" data-faq-paragraph="52">
+          If the first <em>column</em> holds the headers instead, use
+          <code>\tagpdfsetup{table/header-columns={1}}</code>.
+        </p>
         <p id="faq-53" data-faq-paragraph="53">
           More extensive documentation is available here:
           <a href="https://texdoc.org/serve/latex-lab-table/0">https://texdoc.org/serve/latex-lab-table/0</a>
@@ -482,14 +508,11 @@ text-unit para hooks differ!</code></pre>
           structure. It is not enough, for example, to simply make text larger with \Large.
         </p>
         <p id="faq-57" data-faq-paragraph="57">
-          If you have a long document, the problem might (depending on the document class and other
-          issues) be that you are using low-level section headings (subsection) without their
-          parents. Do you have a \section without a parent \chapter, for example?
-        </p>
-        <p>
-          <strong>Class-dependent detail:</strong> In <code>article</code>, <code>\section</code> is
-          the top-level heading; it does not need a <code>\chapter</code>. Follow the hierarchy
-          supported by your document class.
+          If you have a long document, the problem might be that you are skipping heading levels,
+          for example using <code>\subsection</code> without a parent <code>\section</code>. Which
+          command is the top level depends on the document class: in <code>article</code>,
+          <code>\section</code> is the top level and needs no <code>\chapter</code>; in
+          <code>book</code> and <code>report</code>, <code>\chapter</code> is.
         </p>
         <p id="faq-58" data-faq-paragraph="58">
           Finally, check that you are not loading packages that are not fully compatible with the
@@ -525,16 +548,10 @@ text-unit para hooks differ!</code></pre>
           students, will this affect my course&#x27;s accessibility score?
         </h4>
         <p id="faq-61" data-faq-paragraph="61">
-          My understanding is that the answer is probably &#x27;yes&#x27;, and that you should <em>not</em>
-          use Canvas to store non-compliant files not meant for students.
-        </p>
-        <p>
-          <strong>Confirmed scanning behavior:</strong> Anthology’s documentation says Ally scans
-          all content in Canvas Files, including files unavailable to students. See
-          <a href="#ally-hidden-files">the explanation below</a> and
-          <a href="https://help.anthology.com/ally-lms/en/administrators/administrator-faqs-for-ally.html">Ally’s
-          administrator FAQ</a>. For university guidance, consult
-          <a href="https://ada.unl.edu/faqs/">UNL’s Canvas and Ally FAQ</a>.
+          Yes. Ally scans all content in Canvas Files, including files students cannot see, so you
+          should <em>not</em> use Canvas to store non-compliant files not meant for students. See
+          <a href="#ally-hidden-files">the explanation in the Ally section</a>. For university
+          guidance, consult <a href="https://ada.unl.edu/faqs/">UNL’s Canvas and Ally FAQ</a>.
         </p>
         <h3 id="faq-62" data-faq-paragraph="62">
           Beamer and slides
@@ -542,32 +559,25 @@ text-unit para hooks differ!</code></pre>
         <p id="faq-63" data-faq-paragraph="63">
           The LaTeX tagging project
           <a href="https://latex3.github.io/tagging-project/tagging-status/#classes">does not
-          support</a> (nor intend to support) the beamer class. There is an effort called
-          <a href="https://www.texdev.net/ltx-talk/">ltx-talk</a> to create a new class with
-          beamer-like functionality that generates tagged PDFs, but (as of July 2025) it is in the
-          <em>very early </em>stages of development.
+          support</a> (nor intend to support) the beamer class. Instead, use
+          <a href="https://www.texdev.net/ltx-talk/">ltx-talk</a>, a newer class with beamer-like
+          functionality that generates tagged PDFs. It requires LaTeX 2025-11-01 or later.
+        </p>
+        <p id="faq-66" data-faq-paragraph="66">
+          I have created many slides with ltx-talk. The basic overlay functionality of beamer is
+          implemented, very similarly to how beamer does it, but don’t expect fine control over the
+          appearance of your slides or bells &amp; whistles. For example, I don’t think navigation
+          buttons are implemented (or will be at all?). Some examples are available in
+          <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">the Overleaf project</a>
+          and in the repository folder (<a href="https://uofnebraska.sharepoint.com/:f:/r/sites/Restricted-UNL-Math-Service-Course-Repository/Shared%20Documents/Accessibility?csf=1&amp;web=1&amp;e=WwMk7K">Accessibility</a>).
+          I will add more guidance here eventually; for now, contact me with questions.
         </p>
         <p id="faq-64" data-faq-paragraph="64">
           Note that PowerPoint is also not recommended for producing accessible math output.
         </p>
         <p id="faq-65" data-faq-paragraph="65">
-          (September 2025 update) I’m assuming that this largely affects instructors of large,
-          convened service courses, for which we’ll handle the slides centrally. If you are
-          concerned about generating compliant slides for an advanced course, please reach out to me
-          (Zach)
-        </p>
-        <p id="faq-66" data-faq-paragraph="66">
-          (February 2026 update) I have successfully created some slides using ltx-talk. The basic
-          overlay functionality of beamer is implemented (very similarly to how beamer does it), but
-          don’t expect to have fine control over the appearance of your slides or bells &amp;
-          whistles. For example, I don’t think navigation buttons are implemented yet (or will be at
-          all?). Some examples are available in
-          <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">the Overleaf project</a>
-          and in the repository folder (<a href="https://uofnebraska.sharepoint.com/:f:/r/sites/Restricted-UNL-Math-Service-Course-Repository/Shared%20Documents/Accessibility?csf=1&amp;web=1&amp;e=WwMk7K">Accessibility</a>).
-        </p>
-        <p>
-          (October 2026 update) I have created many slides using ltx-talk. I will put more
-          information here eventually, but for now just contact me with questions.
+          Slides for large, convened service courses are handled centrally. If you are concerned
+          about generating compliant slides for another course, please reach out to me (Zach).
         </p>
         <h3 id="examples">
           LaTeX example and reusable code
@@ -577,7 +587,8 @@ text-unit para hooks differ!</code></pre>
         </h4>
         <p>
           <strong>The <code>math/alt/use</code> option in my templates is a compromise for Ally, not
-          an ideal accessibility setting.</strong> My earlier guidance includes this line in <code>\DocumentMetadata</code>:
+          an ideal accessibility setting.</strong> The <a href="#getting-started">Getting started</a>
+          setup includes this line in <code>\DocumentMetadata</code>:
         </p>
         <pre tabindex="0" aria-label="MathML tagging with additional formula alt text"><code>tagging-setup={math/setup=mathml-SE, math/alt/use}</code></pre>
         <p>
@@ -636,172 +647,122 @@ text-unit para hooks differ!</code></pre>
           alt-text compromise</a> above. Test with the PDF reader and assistive tools the student
           uses rather than choosing a format solely for Ally’s score.
         </p>
+        <h4 id="full-example">
+          Full example: tagged-pdf-simple.tex
+        </h4>
         <p>
-          The supplied <code>tagged-pdf-simple.tex</code> uses LuaLaTeX, the tagging module, MathML
-          settings, theorem environments, and two mathematics problems. <strong>Read the
-          <a href="#math-alt-use">MathML and alt-text tradeoff above</a> before reusing its
-          settings.</strong> The updated metadata block below replaces the older setup in that
-          example and belongs before <code>\documentclass</code>.
+          This short problem set uses LuaLaTeX, the tagging module, MathML, theorem environments,
+          and hyperref metadata. It uses the same metadata block as
+          <a href="#getting-started">Getting started</a>, including the
+          <a href="#math-alt-use"><code>math/alt/use</code> compromise</a>. Change the title,
+          author, date, and <code>pdftitle</code> before using it.
         </p>
-        <pre tabindex="0" aria-label="Updated metadata block for the LaTeX example"><code>\DocumentMetadata{
+        <details>
+          <summary>
+            Show the full source of tagged-pdf-simple.tex
+          </summary>
+          <pre tabindex="0" aria-label="Full LaTeX example"><code id="template-code">% tagged-pdf-simple.tex
+% Compile with LuaLaTeX, using TeX Live 2026 or later.
+\DocumentMetadata{
   lang = en-US,
   pdfversion = 2.0,
   tagging = on,
   pdfstandard = ua-2,
   tagging-setup = {math/setup=mathml-SE, math/alt/use}
-}</code></pre>
-        <p>
-          <strong>Before reusing the original example:</strong> replace its older <code>\DocumentMetadata</code>
-          block and standalone <code>\tagpdfsetup{math/setup=mathml-SE, math/alt/use}</code> command
-          with the updated block above. Update the course title, author, due date, and PDF metadata
-          (including the placeholder <code>pdftitle={ Is this a title? }</code>). The original
-          source is preserved below for reference; it has not been compiled or checked here for PDF
-          accessibility.
-        </p>
-        <details>
-          <summary>
-            Original source of tagged-pdf-simple.tex (older metadata setup)
-          </summary>
-          <pre tabindex="0" aria-label="Full supplied LaTeX example"><code id="template-code">%%% you might need this: (leave the percentage sign) % !TEX TS-program = lualatex-dev
-%%% Compile this with LuaLaTeX, after first upgrading your TeX distribution
-\DocumentMetadata
-  {
-    lang = en-US,&#32;
-%    pdfversion = 2.0,
-&#9;tagging = on,
-    pdfstandard = ua-2,
-    pdfstandard = a-4,
-    testphase = latest,
-%    tagging-setup={math/setup=mathml-SE, math/alt/use}%
-  }
-\tagpdfsetup{math/setup=mathml-SE, math/alt/use}
-%%%-------------------------------------------------------------------------------------------------------------------------
-\documentclass [reqno, 11pt] {article}
-\usepackage {unicode-math}
-%%%----------------------------------------------------------------------------------------------------------------------------
-%\usepackage {MnSymbol}&#9;&#9;&#9;&#9;%%% MinionPro already loads this
-%%\usepackage [mathlf,&#9;&#9;&#9;&#9;&#9;&#9;%%% lining figures (not old-style) in math mode
-%%%onlytext
-%%] {MinionPro}
-%%%------------------------------------------ standard packages -------------------------------------------------------
-\usepackage {amsthm}
-\usepackage {amsmath}
-%\usepackage {tikz}
-\usepackage [ margin = 1.6in ] {geometry}
-%%%-------------------------------------------------------------------------------------------------------------------------
-\usepackage {xcolor}
-\definecolor {huskerred} {RGB} {208, 0, 0} &#9;% https://ucomm.unl.edu/brand/colors
-\definecolor {newblue} {rgb} {0,0,.6}
-\definecolor {newgreen} {rgb} {.2,.6,.2}
-%%%-------------------------------------------------------------------------------------------------------------------------
-%\usepackage {graphicx}
-%%%----------------------------------------------------------------------------------------------------------------------------
-\theoremstyle{definition}
-\newtheorem{thm}{Theorem} %[section]
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem {prob} {Problem}
-\newtheorem* {solution*} {Solution}
-%%%----------------------------------------------------------------------------------------------------------------------------
-\title &#9;&#9;{Math 450, Problem Set 7}
-\author &#9;{Zach Norwood}
-\date &#9;{Due Thursday 11 Apr 2024.}
-%%%----------------------------------------------------------------------------------------------------------------------------
-%%% hyperref
-\usepackage {hyperref}
-\hypersetup{
-&#9;bookmarks,&#32;
-&#9;colorlinks = true,
-&#9;citecolor = newblue,&#9;&#9;%newblue
-&#9;linkcolor = newblue, &#9;&#9;%newblue
-&#9;urlcolor = newblue,
-&#9;pdftitle={ Is this a title? },&#32;
-&#9;pdfauthor={Zach Norwood}&#32;
 }
-%%%----------------------------------------------------------------------------------------------------------------------------
-\newenvironment {hint}%
-{\begin {small} (\emph{Hint:}}{\unskip)\end{small}}
-%%%----------------------------------------------------------------------------------------------------------------------------
-\newcommand {\defem} {\textbf}
-\renewcommand {\phi} {\varphi}
-\newcommand {\C} {\mathbf{C}}
-\newcommand {\R} {\mathbf{R}}
-\newcommand {\Q} {\mathbf{Q}}
-\newcommand {\Z} {\mathbf{Z}}
-\newcommand {\N} {\mathbf{N}}
-%%%----------------------------------------------------------------------------------------------------------------------------
+\documentclass[reqno, 11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{unicode-math} % load after amsmath
+\usepackage[margin=1.6in]{geometry}
+
+\usepackage{xcolor}
+\definecolor{newblue}{rgb}{0,0,.6}
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prob}{Problem}
+\newtheorem*{solution*}{Solution}
+
+% Change the title, author, and date, and keep pdftitle below in sync with \title.
+\title{Math 450, Problem Set 7}
+\author{Zach Norwood}
+\date{Due Thursday 11 April 2024}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  citecolor = newblue,
+  linkcolor = newblue,
+  urlcolor = newblue,
+  pdftitle = {Math 450, Problem Set 7},
+  pdfauthor = {Zach Norwood}
+}
+
+\newenvironment{hint}
+  {\begin{small}(\emph{Hint:}}
+  {\unskip)\end{small}}
+
+\newcommand{\defem}{\textbf}
+% unicode-math sets up its symbols at \begin{document}, so redefine \phi there.
+\AtBeginDocument{\renewcommand{\phi}{\varphi}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\N}{\mathbf{N}}
+
 \begin{document}
-%%%----------------------------------------------------------------------------------------------------------------------------
+
 \maketitle
-%%%=====================================================================
-\begin {prob}
+
+\begin{prob}
 Give a proof by induction of the following identity, proved by other means in class.
- \[
- &#9;\sum_{k=0}^n c(n,k) x^k = x^{(n)}.
- \]
-\end {prob}
-%%%-------------------------------------------------------------------------------------------------------------------------
-%%%%=====================================================================
-\begin {prob}
- Recall from Worksheet~7 that the sequence of numbers $B_n$, $n\in\N$, is defined by the recurrence
- \[
+\[
+  \sum_{k=0}^n c(n,k) x^k = x^{(n)}.
+\]
+\end{prob}
+
+\begin{prob}
+Recall from Worksheet~7 that the sequence of numbers $B_n$, $n \in \N$, is defined by the
+recurrence
+\[
   B_0 = 1, \quad \sum_{k=0}^n \binom{n+1}{k} B_k = 0,
- \]
- and has egf $f(x) = \frac{x}{e^x-1}$.
-\begin {enumerate} %%[(a)]
+\]
+and has egf $f(x) = \frac{x}{e^x-1}$.
+\begin{enumerate}
 \item
 What is the solution to the following similar recurrence?
 \[
-c_0 = 1, \quad \sum_{0 \le k \le n} \binom{n}{k} c_k = 0
+  c_0 = 1, \quad \sum_{0 \le k \le n} \binom{n}{k} c_k = 0
 \]
 \item
-%By showing that $f(x) + x/2$ is an even function or otherwise,
 Show that $B_n = 0$ for all odd $n \ge 3$.
-\begin {hint}
- One approach would begin by showing that $f(x) + x/2$ is an even function.
-\end {hint}
-\end {enumerate}
-\end {prob}
-%%%-------------------------------------------------------------------------------------------------------------------------
-%%%=====================================================================
+\begin{hint}
+One approach would begin by showing that $f(x) + x/2$ is an even function.
+\end{hint}
+\end{enumerate}
+\end{prob}
 
-\end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</code></pre>
+\end{document}</code></pre>
         </details>
-        <div class="actions" id="template-actions" hidden="">
-          <button type="button" id="copy-template">Copy full LaTeX example</button><button type="button" id="download-template">Download
-          tagged-pdf-simple.tex</button>
+        <div class="code-tools">
+          <div class="actions" hidden="">
+            <button type="button" data-copy="template-code">Copy full LaTeX example</button>
+            <button type="button" data-download="template-code" data-filename="tagged-pdf-simple.tex">Download tagged-pdf-simple.tex</button>
+          </div>
+          <p class="status" role="status" aria-live="polite"></p>
         </div>
-        <p class="status" id="template-status" role="status" aria-live="polite">
-        </p>
         <noscript>
           <p>
             Open the full source above to select and copy it. The buttons require JavaScript.
           </p>
         </noscript>
+        <p class="updated">
+          Last updated <time datetime="2026-10-16">October 16, 2026</time>
+        </p>
       </section>
 
       <section id="ally" aria-labelledby="ally-title">
@@ -908,6 +869,9 @@ pdfcheck --full handout.pdf</code></pre>
           heading check and a problem-set example, see <a href="#ally-headings">headings in longer
           PDFs</a>.
         </p>
+        <p class="updated">
+          Last updated <time datetime="2026-10-02">October 2, 2026</time>
+        </p>
       </section>
 
       <section id="alternatives" aria-labelledby="alternatives-title">
@@ -931,11 +895,11 @@ pdfcheck --full handout.pdf</code></pre>
           <li id="faq-30" data-faq-paragraph="30">
             The goal of
             <a href="https://latex3.github.io/tagging-project/documentation/prototype-usage-instructions.html">the
-            LaTeX Tagging Project</a> (described more in <a href="#faq-32">this later answer</a>) is
-            to use LaTeX to produce accessible ‘tagged’ PDFs. (These have, essentially, an invisible
-            XML layer that records document structure and math and can be read properly by
-            screenreaders.) You will need to update your TeX distribution in order to use this, and
-            note that many LaTeX packages and classes are unsupported. It is not yet clear to me
+            LaTeX Tagging Project</a> (described more in <a href="#getting-started">Getting
+            started</a>) is to use LaTeX to produce accessible ‘tagged’ PDFs. (These contain a
+            hidden structure tree that records headings, lists, tables, and math, the math as
+            MathML, so that screen readers can present the document properly.) You will need to
+            update your TeX distribution in order to use this, and note that many LaTeX packages and classes are unsupported. It is not yet clear to me
             whether there is a material difference in accessible PDF vs HTML for students who use
             screenreaders; that requires more testing. You can try this out by playing in
             <a href="https://www.overleaf.com/9788831262nxxjbmhtwczd#b5bb98">this Overleaf sandbox</a>.
@@ -946,18 +910,15 @@ pdfcheck --full handout.pdf</code></pre>
             to generate HTML versions of articles. <a href="https://arxiv.org/html/2506.24088v1">Example</a>.
           </li>
         </ol>
-        <p>
-          <strong>About tagged PDFs:</strong> the FAQ’s “invisible XML layer” is an informal
-          description. PDF tags provide a structure tree, and mathematical content can include
-          MathML. The experience with the resulting PDF and with HTML still needs testing with the
-          readers and assistive tools students use.
-        </p>
         <h3 id="pretext">
           PreTeXt
         </h3>
         <p>
           I have extensive experience with PreTeXt and plan to add guidance and examples here. This
           section will cover another approach to producing mathematics for the web.
+        </p>
+        <p class="updated">
+          Last updated <time datetime="2026-10-16">October 16, 2026</time>
         </p>
       </section>
 
@@ -978,6 +939,9 @@ pdfcheck --full handout.pdf</code></pre>
           AI tools have recently become much more useful for converting handwritten materials, but
           beware their tendency to <em>edit</em> and <em>paraphrase</em> instead of only <em>transcribing</em>.
           Check the transcription against the original, including every formula.
+        </p>
+        <p class="updated">
+          Last updated <time datetime="2026-10-01">October 1, 2026</time>
         </p>
       </section>
 
@@ -1027,10 +991,13 @@ pdfcheck --full handout.pdf</code></pre>
             doing. <a href="https://arxiv.org/html/2506.24088v1">Example</a>.)
           </li>
           <li id="faq-81" data-faq-paragraph="81">
-            <a href="https://www.ctan.org/pkg/ltx-talk">ltx-talk</a>, an in-development alternative
-            to beamer
+            <a href="https://www.ctan.org/pkg/ltx-talk">ltx-talk</a>, an alternative to beamer that
+            produces tagged PDFs (see <a href="#faq-62">Beamer and slides</a>)
           </li>
         </ul>
+        <p class="updated">
+          Last updated <time datetime="2026-10-16">October 16, 2026</time>
+        </p>
       </section>
 
       <footer>
@@ -1040,43 +1007,79 @@ pdfcheck --full handout.pdf</code></pre>
           testing workflows.
         </p>
         <p>
-          Updated <time datetime="2026-10-01">October 1, 2026</time>. Incorporates <cite>FAQ and
-          resources</cite>, <code>tagged-pdf-simple.tex</code>, and email guidance on tagging and
-          Ally reporting. Further contributions and PreTeXt guidance will be added.
+          Updated <time datetime="2026-10-16">October 16, 2026</time>. Further contributions and
+          PreTeXt guidance will be added.
         </p>
+        <h2>
+          Recent changes
+        </h2>
+        <ul>
+          <li>
+            <time datetime="2026-10-16">October 16, 2026</time>: Replaced the full LaTeX example
+            with an updated version, merged the installation advice, resolved conflicting answers,
+            and added a table header example, a copy button for the metadata block, and dark mode.
+          </li>
+          <li>
+            <time datetime="2026-10-02">October 2, 2026</time>: Updated the slides experience with
+            ltx-talk and simplified the department score explanation.
+          </li>
+          <li>
+            <time datetime="2026-10-01">October 1, 2026</time>: Published this page, bringing
+            together the department FAQ, a tagged LaTeX example, and Ally score guidance.
+          </li>
+        </ul>
       </footer>
 
     </main>
     <script>
-    const template = document.getElementById('template-code');
-    const status = document.getElementById('template-status');
-    document.getElementById('template-actions').hidden = false;
-    document.getElementById('copy-template').addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(template.textContent);
-        status.textContent = 'Code copied to clipboard.';
-      } catch {
-        template.closest('details').open = true;
-        template.parentElement.focus();
-        const selection = window.getSelection();
-        const range = document.createRange();
-        range.selectNodeContents(template);
-        selection.removeAllRanges();
-        selection.addRange(range);
-        status.textContent = 'Clipboard access is unavailable. The code is selected; use your browser’s Copy command.';
-      }
+    function setStatus(button, message) {
+      const status = button.closest('.code-tools').querySelector('.status');
+      status.textContent = message;
+    }
+
+    function selectCode(code) {
+      const details = code.closest('details');
+      if (details) details.open = true;
+      code.parentElement.focus();
+      const range = document.createRange();
+      range.selectNodeContents(code);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+
+    document.querySelectorAll('.code-tools .actions').forEach((actions) => {
+      actions.hidden = false;
     });
-    document.getElementById('download-template').addEventListener('click', () => {
-      const file = new Blob([template.textContent], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(file);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'tagged-pdf-simple.tex';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 10000);
-      status.textContent = 'Download requested: tagged-pdf-simple.tex.';
+
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const code = document.getElementById(button.dataset.copy);
+        try {
+          await navigator.clipboard.writeText(code.textContent);
+          setStatus(button, 'Code copied to clipboard.');
+        } catch {
+          selectCode(code);
+          setStatus(button, 'Clipboard access is unavailable. The code is selected; use your browser’s Copy command.');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-download]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const code = document.getElementById(button.dataset.download);
+        const filename = button.dataset.filename;
+        const file = new Blob([code.textContent + '\n'], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(file);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+        setStatus(button, `Download requested: ${filename}.`);
+      });
     });
   </script>
   </body>
