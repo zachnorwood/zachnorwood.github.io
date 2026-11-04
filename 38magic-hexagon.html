@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The magic hexagon</title>
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#fdfdfb;--fg:#1f1f1d;--muted:#6b6a64;--cell:#f1efe8;--cell-hover:#e4e2d9;--edge:#b4b2a9;
+  --o-f:#FAEEDA;--o-s:#BA7517;--o-t:#633806;
+  --p-f:#EEEDFE;--p-s:#7F77DD;--p-t:#3C3489;
+  --g-f:#EAF3DE;--g-s:#639922;--g-t:#27500A;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#1c1c1a;--fg:#ecebe6;--muted:#a3a29b;--cell:#2c2c2a;--cell-hover:#383835;--edge:#5f5e5a;
+    --o-f:#633806;--o-s:#EF9F27;--o-t:#FAC775;
+    --p-f:#3C3489;--p-s:#AFA9EC;--p-t:#CECBF6;
+    --g-f:#27500A;--g-s:#97C459;--g-t:#C0DD97;
+  }
+}
+html,body{margin:0;background:var(--bg);color:var(--fg)}
+body{font-family:Palatino,"Palatino Linotype","Book Antiqua",Georgia,serif;line-height:1.6}
+main{max-width:42em;margin:0 auto;padding:2.5rem 1.25rem 3rem}
+h1{font-weight:normal;font-size:2rem;margin:0 0 .5rem;text-align:center}
+.lede{color:var(--muted);text-align:center;margin:0 auto 1.5rem;max-width:34em}
+.mh[data-d="0"]{--hf:var(--o-f);--hs:var(--o-s);--ht:var(--o-t)}
+.mh[data-d="1"]{--hf:var(--p-f);--hs:var(--p-s);--ht:var(--p-t)}
+.mh[data-d="2"]{--hf:var(--g-f);--hs:var(--g-s);--ht:var(--g-t)}
+svg{display:block;width:100%;max-width:520px;margin:0 auto;height:auto}
+.hx{fill:var(--cell);stroke:var(--edge);stroke-width:0.75;transition:fill .2s}
+.hx.on{fill:var(--hf);stroke:var(--hs);stroke-width:1.5}
+.hx.pick{stroke:var(--ht);stroke-width:3;stroke-linejoin:round}
+.hv{font-family:inherit;font-size:19px;fill:var(--fg);pointer-events:none}
+.hv.on{fill:var(--ht)}
+.cell{cursor:pointer;outline:none}
+.cell:hover .hx:not(.on){fill:var(--cell-hover)}
+.cell:focus-visible .hx{stroke:var(--fg);stroke-width:2}
+@media (prefers-reduced-motion: reduce){.hx{transition:none}}
+#sum{font-size:1.35rem;text-align:center;margin:1rem 0 .25rem;font-variant-numeric:lining-nums}
+#sub{font-size:.95rem;text-align:center;color:var(--muted);margin:0}
+.note{color:var(--muted);font-size:.95rem;margin-top:2.5rem}
+</style>
+</head>
+<body>
+<main>
+<h1>The magic hexagon</h1>
+<p class="lede">The numbers 1 through 19 arranged so that every straight line of cells sums to 38. Click a cell to see a line through it, and click it again to turn to the next direction.</p>
+<div class="mh" id="mh" data-d="0">
+  <svg id="hexsvg" viewBox="160 0 360 310" role="img" aria-labelledby="ht hd">
+    <title id="ht">Magic hexagon of order 3</title>
+    <desc id="hd">Rows from top: 3 17 18; 19 7 1 11; 16 2 5 6 9; 12 4 8 14; 10 13 15. Every row and diagonal sums to 38.</desc>
+  </svg>
+  <p id="sum" aria-live="polite">Click any cell</p>
+  <p id="sub"></p>
+</div>
+<p class="note">The cells hold 1 + 2 + &hellip; + 19 = 190 in total, and the five parallel rows split that evenly, so each line must sum to 190/5 = 38. Clifford Adams found this arrangement in the 1950s after decades of searching. Up to rotation and reflection, it is the only normal magic hexagon besides the trivial one-cell hexagon.</p>
+</main>
+<script>
+const rows=[[3,17,18],[19,7,1,11],[16,2,5,6,9],[12,4,8,14],[10,13,15]];
+const off=[1,.5,0,.5,1];
+const R=34,W=Math.sqrt(3)*R,cells=[];
+const svg=document.getElementById('hexsvg');
+const NS='http://www.w3.org/2000/svg';
+const dirNames=['row','\u2199 diagonal','\u2198 diagonal'];
+let picked=null,dir=0;
+rows.forEach((row,r)=>row.forEach((v,i)=>{
+  const xp=off[r]+i, cx=340+(xp-2)*W, cy=50+r*51;
+  const g=document.createElementNS(NS,'g');
+  g.setAttribute('class','cell');g.setAttribute('tabindex','0');g.setAttribute('role','button');
+  g.setAttribute('aria-label','Cell '+v);
+  const p=document.createElementNS(NS,'polygon');
+  p.setAttribute('points',[[0,-R],[W/2,-R/2],[W/2,R/2],[0,R],[-W/2,R/2],[-W/2,-R/2]].map(([a,b])=>(cx+a).toFixed(1)+','+(cy+b).toFixed(1)).join(' '));
+  p.setAttribute('class','hx');
+  const t=document.createElementNS(NS,'text');
+  t.setAttribute('x',cx);t.setAttribute('y',cy);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','central');
+  t.setAttribute('class','hv');t.textContent=v;
+  g.appendChild(p);g.appendChild(t);svg.appendChild(g);
+  const c={r,xp,v,p,t,g,keys:[r,xp+.5*r,xp-.5*r]};
+  const act=()=>{ if(picked===c){dir=(dir+1)%3;} else {picked=c;dir=0;} show(); };
+  g.addEventListener('click',act);
+  g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();act();} });
+  cells.push(c);
+}));
+function show(){
+  document.getElementById('mh').dataset.d=dir;
+  const k=picked.keys[dir];
+  const line=cells.filter(c=>c.keys[dir]===k).sort((a,b)=>a.r-b.r||a.xp-b.xp);
+  cells.forEach(c=>{const on=c.keys[dir]===k;c.p.classList.toggle('on',on);c.t.classList.toggle('on',on);c.p.classList.toggle('pick',c===picked);});
+  line.forEach(c=>svg.appendChild(c.g));
+  svg.appendChild(picked.g);
+  picked.g.focus({preventScroll:true});
+  const s=line.reduce((a,c)=>a+c.v,0);
+  document.getElementById('sum').textContent=line.map(c=>c.v).join(' + ')+' = '+s;
+  document.getElementById('sub').textContent='The '+dirNames[dir]+' through '+picked.v+' ('+(dir+1)+' of 3). Click '+picked.v+' again for the next line.';
+}
+</script>
+</body>
+</html>
